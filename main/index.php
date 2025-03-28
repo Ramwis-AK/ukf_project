@@ -639,12 +639,5 @@
 
   <?php include_once 'footer.php'; ?>
 
-  <script src="../templatemo_586_scholar/vendor/jquery/jquery.min.js"></script>
-  <script src="../templatemo_586_scholar/vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="../templatemo_586_scholar/assets/js/isotope.min.js"></script>
-  <script src="../templatemo_586_scholar/assets/js/owl-carousel.js"></script>
-  <script src="../templatemo_586_scholar/assets/js/counter.js"></script>
-  <script src="../templatemo_586_scholar/assets/js/custom.js"></script>
-
   </body>
 </html>

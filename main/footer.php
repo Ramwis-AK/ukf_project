@@ -13,6 +13,5 @@
 <script src="assets/js/animation.js"></script>
 <script src="assets/js/imagesloaded.js"></script>
 <script src="assets/js/custom.js"></script>
-</body>
-</html>
+
 
