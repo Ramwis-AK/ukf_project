@@ -637,16 +637,8 @@
     </div>
   </div>
 
-  <footer>
-    <div class="container">
-      <div class="col-lg-12">
-        <p>Copyright © 2036 Scholar Organization. All rights reserved. &nbsp;&nbsp;&nbsp; Design: <a href="https://templatemo.com" rel="nofollow" target="_blank">TemplateMo</a></p>
-      </div>
-    </div>
-  </footer>
+  <?php include_once 'footer.php'; ?>
 
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
   <script src="../templatemo_586_scholar/vendor/jquery/jquery.min.js"></script>
   <script src="../templatemo_586_scholar/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="../templatemo_586_scholar/assets/js/isotope.min.js"></script>
