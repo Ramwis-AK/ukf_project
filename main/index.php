@@ -119,7 +119,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="service-item">
             <div class="icon">
-              <img src="../templatemo_586_scholar/assets/images/service-01.png" alt="online degrees">
+              <img src="../assets/images/service-01.png" alt="online degrees">
             </div>
             <div class="main-content">
               <h4>Online Degrees</h4>
@@ -133,7 +133,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="service-item">
             <div class="icon">
-              <img src="../templatemo_586_scholar/assets/images/service-02.png" alt="short courses">
+              <img src="../assets/images/service-02.png" alt="short courses">
             </div>
             <div class="main-content">
               <h4>Short Courses</h4>
@@ -147,7 +147,7 @@
         <div class="col-lg-4 col-md-6">
           <div class="service-item">
             <div class="icon">
-              <img src="../templatemo_586_scholar/assets/images/service-03.png" alt="web experts">
+              <img src="../assets/images/service-03.png" alt="web experts">
             </div>
             <div class="main-content">
               <h4>Web Experts</h4>
@@ -259,7 +259,7 @@
         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
           <div class="events_item">
             <div class="thumb">
-              <a href="#"><img src="../templatemo_586_scholar/assets/images/course-01.jpg" alt=""></a>
+              <a href="#"><img src="../assets/images/course-01.jpg" alt=""></a>
               <span class="category">Webdesign</span>
               <span class="price"><h6><em>$</em>160</h6></span>
             </div>
@@ -272,7 +272,7 @@
         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6  development">
           <div class="events_item">
             <div class="thumb">
-              <a href="#"><img src="../templatemo_586_scholar/assets/images/course-02.jpg" alt=""></a>
+              <a href="#"><img src="../assets/images/course-02.jpg" alt=""></a>
               <span class="category">Development</span>
               <span class="price"><h6><em>$</em>340</h6></span>
             </div>
@@ -285,7 +285,7 @@
         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design wordpress">
           <div class="events_item">
             <div class="thumb">
-              <a href="#"><img src="../templatemo_586_scholar/assets/images/course-03.jpg" alt=""></a>
+              <a href="#"><img src="../assets/images/course-03.jpg" alt=""></a>
               <span class="category">Wordpress</span>
               <span class="price"><h6><em>$</em>640</h6></span>
             </div>
@@ -298,7 +298,7 @@
         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 development">
           <div class="events_item">
             <div class="thumb">
-              <a href="#"><img src="../templatemo_586_scholar/assets/images/course-04.jpg" alt=""></a>
+              <a href="#"><img src="../assets/images/course-04.jpg" alt=""></a>
               <span class="category">Development</span>
               <span class="price"><h6><em>$</em>450</h6></span>
             </div>
@@ -311,7 +311,7 @@
         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 wordpress development">
           <div class="events_item">
             <div class="thumb">
-              <a href="#"><img src="../templatemo_586_scholar/assets/images/course-05.jpg" alt=""></a>
+              <a href="#"><img src="../assets/images/course-05.jpg" alt=""></a>
               <span class="category">Wordpress</span>
               <span class="price"><h6><em>$</em>320</h6></span>
             </div>
@@ -324,7 +324,7 @@
         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 wordpress design">
           <div class="events_item">
             <div class="thumb">
-              <a href="#"><img src="../templatemo_586_scholar/assets/images/course-06.jpg" alt=""></a>
+              <a href="#"><img src="../assets/images/course-06.jpg" alt=""></a>
               <span class="category">Webdesign</span>
               <span class="price"><h6><em>$</em>240</h6></span>
             </div>
@@ -381,7 +381,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="team-member">
             <div class="main-content">
-              <img src="../templatemo_586_scholar/assets/images/member-01.jpg" alt="">
+              <img src="../assets/images/member-01.jpg" alt="">
               <span class="category">UX Teacher</span>
               <h4>Sophia Rose</h4>
               <ul class="social-icons">
@@ -395,7 +395,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="team-member">
             <div class="main-content">
-              <img src="../templatemo_586_scholar/assets/images/member-02.jpg" alt="">
+              <img src="../assets/images/member-02.jpg" alt="">
               <span class="category">Graphic Teacher</span>
               <h4>Cindy Walker</h4>
               <ul class="social-icons">
@@ -409,7 +409,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="team-member">
             <div class="main-content">
-              <img src="../templatemo_586_scholar/assets/images/member-03.jpg" alt="">
+              <img src="../assets/images/member-03.jpg" alt="">
               <span class="category">Full Stack Master</span>
               <h4>David Hutson</h4>
               <ul class="social-icons">
@@ -423,7 +423,7 @@
         <div class="col-lg-3 col-md-6">
           <div class="team-member">
             <div class="main-content">
-              <img src="../templatemo_586_scholar/assets/images/member-04.jpg" alt="">
+              <img src="../assets/images/member-04.jpg" alt="">
               <span class="category">Digital Animator</span>
               <h4>Stella Blair</h4>
               <ul class="social-icons">
@@ -446,7 +446,7 @@
             <div class="item">
               <p>“Please tell your friends or collegues about TemplateMo website. Anyone can access the website to download free templates. Thank you for visiting.”</p>
               <div class="author">
-                <img src="../templatemo_586_scholar/assets/images/testimonial-author.jpg" alt="">
+                <img src="../assets/images/testimonial-author.jpg" alt="">
                 <span class="category">Full Stack Master</span>
                 <h4>Claude David</h4>
               </div>
@@ -454,7 +454,7 @@
             <div class="item">
               <p>“Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravid.”</p>
               <div class="author">
-                <img src="../templatemo_586_scholar/assets/images/testimonial-author.jpg" alt="">
+                <img src="../assets/images/testimonial-author.jpg" alt="">
                 <span class="category">UI Expert</span>
                 <h4>Thomas Jefferson</h4>
               </div>
@@ -462,7 +462,7 @@
             <div class="item">
               <p>“Scholar is free website template provided by TemplateMo for educational related websites. This CSS layout is based on Bootstrap v5.3.0 framework.”</p>
               <div class="author">
-                <img src="../templatemo_586_scholar/assets/images/testimonial-author.jpg" alt="">
+                <img src="../assets/images/testimonial-author.jpg" alt="">
                 <span class="category">Digital Animator</span>
                 <h4>Stella Blair</h4>
               </div>
@@ -494,7 +494,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <div class="image">
-                  <img src="../templatemo_586_scholar/assets/images/event-01.jpg" alt="">
+                  <img src="../assets/images/event-01.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-9">
@@ -526,7 +526,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <div class="image">
-                  <img src="../templatemo_586_scholar/assets/images/event-02.jpg" alt="">
+                  <img src="../assets/images/event-02.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-9">
@@ -558,7 +558,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <div class="image">
-                  <img src="../templatemo_586_scholar/assets/images/event-03.jpg" alt="">
+                  <img src="../assets/images/event-03.jpg" alt="">
                 </div>
               </div>
               <div class="col-lg-9">
