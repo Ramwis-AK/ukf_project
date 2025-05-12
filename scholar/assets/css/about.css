@@ -1,0 +1,89 @@
+.about-us {
+    position: relative;
+    padding: 0px;
+    margin-top: 130px;
+}
+
+.about-us:before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    width: 84%;
+    height: 100%;
+    background-color: #f1f0fe;
+    content: '';
+    border-top-left-radius: 500px;
+    border-bottom-left-radius: 500px;
+}
+
+.accordion {
+    margin-top: -40px;
+    margin-bottom: -40px;
+    background-color: #7a6ad8;
+    border-radius: 40px;
+    padding: 80px 50px 50px 50px;
+}
+
+.accordion-item {
+    background-color: #fff;
+    border-radius: 40px !important;
+    margin-bottom: 30px;
+    border: none;
+}
+
+.accordion-item .accordion-button {
+    outline: none;
+    box-shadow: none;
+    border-radius: 40px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #7a6ad8;
+    background-color: #fff;
+}
+
+h2.accordion-header button {
+    padding: 15px 25px;
+    font-family: 'Poppins';
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.accordion-button::after {
+    font-size: 18px;
+    font-weight: 500;
+    background-image: none;
+    content: '+';
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #7a6ad8;
+    color: #fff;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: none;
+    line-height: 32px;
+    content: '-';
+}
+
+.accordion-body {
+    padding: 0px 25px 30px 25px;
+    font-size: 14px;
+    line-height: 28px;
+    color: #4a4a4a;
+}
+
+.about-us .section-heading {
+    margin-left: 60px;
+    margin-bottom: 0px;
+}
+
+.about-us .section-heading .main-button {
+    margin-top: 50px;
+}
