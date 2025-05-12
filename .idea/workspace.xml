@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f4e9e83e-8cb1-4201-9c01-c28797fd7eba" name="Changes" comment="funguj" />
+    <list default="true" id="f4e9e83e-8cb1-4201-9c01-c28797fd7eba" name="Changes" comment="funguj">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/contact.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/courses.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/courses.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/events.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/gallery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/assets/css/templatemo-scholar.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/templatemo-scholar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/index.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,6 +117,7 @@
       <workItem from="1744315540046" duration="42000" />
       <workItem from="1744315592860" duration="3000" />
       <workItem from="1746641745238" duration="3089000" />
+      <workItem from="1747077028669" duration="6413000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />

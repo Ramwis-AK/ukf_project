@@ -5,12 +5,12 @@
 
 // Define navigation items
 $navItems = [
-    ['url' => '#top', 'text' => 'Home', 'active' => true],
-    ['url' => '#services', 'text' => 'Services', 'active' => false],
-    ['url' => '#courses', 'text' => 'Courses', 'active' => false],
-    ['url' => '#team', 'text' => 'Team', 'active' => false],
-    ['url' => '#events', 'text' => 'Events', 'active' => false],
-    ['url' => '#contact', 'text' => 'Register Now!', 'active' => false],
+    ['url' => '#top', 'text' => 'Domov', 'active' => true],
+    ['url' => '#services', 'text' => 'O nás', 'active' => false],
+    ['url' => '#courses', 'text' => 'Ponuka', 'active' => false],
+    ['url' => '#team', 'text' => 'Tím', 'active' => false],
+    ['url' => '#events', 'text' => 'Galéria', 'active' => false],
+    ['url' => '#contact', 'text' => 'Kontakt', 'active' => false],
 ];
 ?>
 
@@ -22,7 +22,7 @@ $navItems = [
                 <nav class="main-nav">
                     <!-- Logo Start -->
                     <a href="index.php" class="logo">
-                        <h1>Scholar</h1>
+                        <h1>Gorm</h1>
                     </a>
                     <!-- Logo End -->
 

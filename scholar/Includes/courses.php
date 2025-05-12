@@ -5,61 +5,70 @@
 
 // Define course filter categories
 $courseCategories = [
-    ['filter' => '*', 'text' => 'Show All', 'active' => true],
-    ['filter' => '.design', 'text' => 'Webdesign', 'active' => false],
-    ['filter' => '.development', 'text' => 'Development', 'active' => false],
-    ['filter' => '.wordpress', 'text' => 'Wordpress', 'active' => false]
+    ['filter' => '*', 'text' => 'Všetko', 'active' => true],
+    ['filter' => '.little', 'text' => 'Detské akcie', 'active' => false],
+    ['filter' => '.mid', 'text' => 'Školy', 'active' => false],
+    ['filter' => '.big', 'text' => 'Firmy', 'active' => false],
+    ['filter' => '.else', 'text' => 'Iné', 'active' => false]
 ];
 
 // Define course items
 $courseItems = [
     [
         'image' => 'assets/images/course-01.jpg',
-        'categories' => ['design'],
-        'category_label' => 'Webdesign',
+        'categories' => ['little'],
         'price' => 160,
         'author' => 'Stella Blair',
         'title' => 'Learn Web Design'
     ],
     [
         'image' => 'assets/images/course-02.jpg',
-        'categories' => ['development'],
-        'category_label' => 'Development',
+        'categories' => ['little'],
         'price' => 340,
         'author' => 'Cindy Walker',
         'title' => 'Web Development Tips'
     ],
     [
         'image' => 'assets/images/course-03.jpg',
-        'categories' => ['design', 'wordpress'],
-        'category_label' => 'Wordpress',
+        'categories' => ['mid'],
         'price' => 640,
         'author' => 'David Hutson',
         'title' => 'Latest Web Trends'
     ],
     [
         'image' => 'assets/images/course-04.jpg',
-        'categories' => ['development'],
-        'category_label' => 'Development',
+        'categories' => ['mid'],
         'price' => 450,
         'author' => 'Stella Blair',
         'title' => 'Online Learning Steps'
     ],
     [
         'image' => 'assets/images/course-05.jpg',
-        'categories' => ['wordpress', 'development'],
-        'category_label' => 'Wordpress',
+        'categories' => ['big'],
         'price' => 320,
         'author' => 'Sophia Rose',
         'title' => 'Be a WordPress Master'
     ],
     [
         'image' => 'assets/images/course-06.jpg',
-        'categories' => ['wordpress', 'design'],
-        'category_label' => 'Webdesign',
+        'categories' => ['big'],
         'price' => 240,
         'author' => 'David Hutson',
         'title' => 'Full Stack Developer'
+    ],
+    [
+        'image' => 'assets/images/course-05.jpg',
+        'categories' => ['else'],
+        'price' => 320,
+        'author' => 'Sophia Rose',
+        'title' => 'Be a WordPress Master'
+    ],
+    [
+        'image' => 'assets/images/course-05.jpg',
+        'categories' => ['else'],
+        'price' => 320,
+        'author' => 'Sophia Rose',
+        'title' => 'Be a WordPress Master'
     ]
 ];
 
@@ -75,8 +84,8 @@ function getCourseClasses($categories) {
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="section-heading">
-                    <h6>Latest Courses</h6>
-                    <h2>Latest Courses</h2>
+                    <h6>ponuka</h6>
+                    <h2>aktuálna ponuka</h2>
                 </div>
             </div>
         </div>
@@ -97,8 +106,7 @@ function getCourseClasses($categories) {
                     <div class="events_item">
                         <div class="thumb">
                             <a href="#"><img src="<?php echo $course['image']; ?>" alt=""></a>
-                            <span class="category"><?php echo $course['category_label']; ?></span>
-                            <span class="price"><h6><em>$</em><?php echo $course['price']; ?></h6></span>
+                            <span class="price"><h6><em>od $</em><?php echo $course['price']; ?></h6></span>
                         </div>
                         <div class="down-content">
                             <span class="author"><?php echo $course['author']; ?></span>

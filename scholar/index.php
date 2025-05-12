@@ -70,7 +70,7 @@ $pageTitle = "Scholar - Online School PHP Template";
 <!-- Testimonials Section End -->
 
 <!-- Events Section Start -->
-<?php include_once('includes/events.php'); ?>
+<?php include_once('includes/gallery.php'); ?>
 <!-- Events Section End -->
 
 <!-- Contact Us Section Start -->
