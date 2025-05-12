@@ -29,7 +29,6 @@ $pageTitle = "Scholar - Online School PHP Template";
     <link rel="stylesheet" href="assets/css/templatemo-scholar.css">
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
     <!-- separate css -->
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/preloader.css">
@@ -44,6 +43,8 @@ $pageTitle = "Scholar - Online School PHP Template";
     <link rel="stylesheet" href="assets/css/gallery.css">
     <link rel="stylesheet" href="assets/css/contact.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 </head>
 
 <body>

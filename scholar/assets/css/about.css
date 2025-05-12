@@ -88,6 +88,6 @@ h2.accordion-header button {
     margin-top: 50px;
 }
 
-h2{
-
+.about-us h2{
+    text-transform: none;
 }

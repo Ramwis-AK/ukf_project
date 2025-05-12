@@ -30,6 +30,7 @@ $accordionItems = [
         'show' => false
     ]
 ];
+
 ?>
 
 <!-- About Us Section -->
@@ -53,16 +54,18 @@ $accordionItems = [
                             </div>
                         </div>
                     <?php endforeach; ?>
-
                 </div>
             </div>
             <div class="col-lg-5 align-self-center">
                 <div class="section-heading">
                     <h6>O nás</h6>
                     <h2>Ste pripravený zažiť rozdiel?</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravid risus commodo.</p>
+                    <p>Každý má svoj príbeh. My nie sme len eventová agentúra – sme tím, ktorý verí v silu emócií a radosti.
+                        Rýchla reakcia, pohotové riešenia a tvorivý prístup? Pre nás samozrejmosť.</p>
                     <div class="main-button">
-                        <a href="#">Discover More</a>
+                    <li class="scroll-to-section">
+                        <a href="#contact">Zisti viac</a>
+                    </li>
                     </div>
                 </div>
             </div>
