@@ -58,8 +58,8 @@ $accordionItems = [
             </div>
             <div class="col-lg-5 align-self-center">
                 <div class="section-heading">
-                    <h6>About Us</h6>
-                    <h2>What make us the best academy online?</h2>
+                    <h6>O nás</h6>
+                    <h2>Ste pripravený zažiť rozdiel?</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravid risus commodo.</p>
                     <div class="main-button">
                         <a href="#">Discover More</a>
