@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9e83e-8cb1-4201-9c01-c28797fd7eba" name="Changes" comment="funguj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/contact.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/Includes/courses.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/courses.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/events.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/gallery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/header.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/facts.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/facts.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/assets/css/templatemo-scholar.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/templatemo-scholar.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/index.php" afterDir="false" />
     </list>
@@ -58,6 +55,9 @@
     &quot;accountId&quot;: &quot;74aeaf2b-a506-49bb-87f7-d402f21317e3&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -117,7 +117,8 @@
       <workItem from="1744315540046" duration="42000" />
       <workItem from="1744315592860" duration="3000" />
       <workItem from="1746641745238" duration="3089000" />
-      <workItem from="1747077028669" duration="6413000" />
+      <workItem from="1747077028669" duration="6598000" />
+      <workItem from="1747083701330" duration="2869000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />

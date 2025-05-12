@@ -1,4 +1,4 @@
-/* 
+/*
 
 TemplateMo 586 Scholar
 
@@ -20,18 +20,18 @@ Table of contents
 09. footer
 
 --------------------------------------------- */
-/* 
+/*
 ---------------------------------------------
 font & reset css
---------------------------------------------- 
+---------------------------------------------
 */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
-/* 
+/*
 ---------------------------------------------
 reset
---------------------------------------------- 
+---------------------------------------------
 */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div,
 pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q,
 s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
 figure, header, nav, section, article, aside, footer, figcaption {
@@ -109,10 +109,10 @@ img {
   overflow: hidden;
 }
 
-/* 
+/*
 ---------------------------------------------
 Global Styles
---------------------------------------------- 
+---------------------------------------------
 */
 html,
 body {
@@ -176,10 +176,10 @@ body {
   color: #fff;
 }
 
-/* 
+/*
 ---------------------------------------------
 Pre-loader Style
---------------------------------------------- 
+---------------------------------------------
 */
 
 .js-preloader {
@@ -278,10 +278,10 @@ Pre-loader Style
 
 
 
-/* 
+/*
 ---------------------------------------------
 Header Style
---------------------------------------------- 
+---------------------------------------------
 */
 
 .background-header {
@@ -657,13 +657,13 @@ Header Style
     padding-left: 0px !important;
     padding-right: 0px !important;
   }
-  
+
 }
 
-/* 
+/*
 ---------------------------------------------
 Banner Style
---------------------------------------------- 
+---------------------------------------------
 */
 
 .main-banner {
@@ -794,10 +794,10 @@ Banner Style
 }
 
 
-/* 
+/*
 ---------------------------------------------
 Services Style
---------------------------------------------- 
+---------------------------------------------
 */
 
 .services .service-item:hover .icon img {
@@ -849,10 +849,10 @@ Services Style
   margin-bottom: 25px;
 }
 
-/* 
+/*
 ---------------------------------------------
 About Style
---------------------------------------------- 
+---------------------------------------------
 */
 
 .about-us {
@@ -946,10 +946,10 @@ h2.accordion-header button {
 }
 
 
-/* 
+/*
 ---------------------------------------------
 Courses Style
---------------------------------------------- 
+---------------------------------------------
 */
 
 .courses {
@@ -1014,32 +1014,30 @@ Courses Style
 
 .events_item .thumb span.price {
   position: absolute;
-  right: -30px;
+  right: -20px;
   top: -50px;
   background-color: rgba(122, 106, 216, 0.95);
-  width: 140px;  /* Increased from 130px */
-  height: 140px; /* Increased from 130px */
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   display: inline-block;
   transition: all .3s;
 }
 
 .events_item .thumb span.price h6 {
-  margin-top: 75px;  /* Adjusted from 72px */
-  margin-left: 15px; /* Reduced from 22px to make room for "od" */
-  font-size: 26px;   /* Slightly smaller than original 28px */
+  margin-top: 75px;
+  margin-left: 15px;
+  font-size: 26px;
   text-transform: uppercase;
   color: #fff;
   font-weight: 700;
-  display: flex;     /* Added to better control layout */
-  align-items: center;
 }
 
 .events_item .thumb span.price em {
-  font-size: 16px;   /* Slightly smaller than original 18px */
+  font-size: 10px;
   font-weight: 500;
   font-style: normal;
-  margin-right: 2px; /* Added spacing between "od $" and the price */
+  margin-right: 3px;
 }
 .events_item {
   background-color: #f1f0fe;
@@ -1082,60 +1080,7 @@ Facts Style
 --------------------------------------------- 
 */
 
-.fun-facts {
-  position: relative;
-  padding: 120px 0px 80px 0px;
-  overflow: hidden;
-}
 
-.fun-facts:before {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-  width: 95%;
-  height: 100%;
-  background-color: #7a6ad8;
-  content: '';
-  border-top-right-radius: 500px;
-  border-bottom-right-radius: 500px;
-}
-
-.fun-facts:after {
-  background: url(../images/contact-dec-01.png);
-  position: absolute;
-  left: 15%;
-  opacity: 0.5;
-  top: 0;
-  width: 318px;
-  height: 119px;
-  content: '';
-  z-index: 2;
-}
-
-.fun-facts .counter {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.fun-facts h2 {
-  color: #fff;
-  font-size: 48px;
-  font-weight: 700;
-}
-
-.fun-facts h2::after {
-  content: '+';
-  margin-left: 5px;
-}
-
-.fun-facts p {
-  color: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 15px;
-}
 
 
 /* 

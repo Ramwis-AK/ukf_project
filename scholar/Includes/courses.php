@@ -17,56 +17,48 @@ $courseItems = [
     [
         'image' => 'assets/images/course-01.jpg',
         'categories' => ['little'],
-        'price' => 160,
         'author' => 'Stella Blair',
         'title' => 'Learn Web Design'
     ],
     [
         'image' => 'assets/images/course-02.jpg',
         'categories' => ['little'],
-        'price' => 340,
         'author' => 'Cindy Walker',
         'title' => 'Web Development Tips'
     ],
     [
         'image' => 'assets/images/course-03.jpg',
         'categories' => ['mid'],
-        'price' => 640,
         'author' => 'David Hutson',
         'title' => 'Latest Web Trends'
     ],
     [
         'image' => 'assets/images/course-04.jpg',
         'categories' => ['mid'],
-        'price' => 450,
         'author' => 'Stella Blair',
         'title' => 'Online Learning Steps'
     ],
     [
         'image' => 'assets/images/course-05.jpg',
         'categories' => ['big'],
-        'price' => 320,
         'author' => 'Sophia Rose',
         'title' => 'Be a WordPress Master'
     ],
     [
         'image' => 'assets/images/course-06.jpg',
         'categories' => ['big'],
-        'price' => 240,
         'author' => 'David Hutson',
         'title' => 'Full Stack Developer'
     ],
     [
         'image' => 'assets/images/course-05.jpg',
         'categories' => ['else'],
-        'price' => 320,
         'author' => 'Sophia Rose',
         'title' => 'Be a WordPress Master'
     ],
     [
         'image' => 'assets/images/course-05.jpg',
         'categories' => ['else'],
-        'price' => 320,
         'author' => 'Sophia Rose',
         'title' => 'Be a WordPress Master'
     ]
@@ -106,7 +98,6 @@ function getCourseClasses($categories) {
                     <div class="events_item">
                         <div class="thumb">
                             <a href="#"><img src="<?php echo $course['image']; ?>" alt=""></a>
-                            <span class="price"><h6><em>od $</em><?php echo $course['price']; ?></h6></span>
                         </div>
                         <div class="down-content">
                             <span class="author"><?php echo $course['author']; ?></span>

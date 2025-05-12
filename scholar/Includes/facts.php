@@ -7,26 +7,26 @@
 $factsItems = [
     [
         'number' => 150,
-        'speed' => 1000,
-        'text' => 'Happy Students',
+        'speed' => 1100,
+        'text' => 'Eventov',
         'class' => ''
     ],
     [
-        'number' => 804,
-        'speed' => 1000,
-        'text' => 'Course Hours',
+        'number' => 80000,
+        'speed' => 1100,
+        'text' => 'Spokojných účastníkov',
         'class' => ''
     ],
     [
-        'number' => 50,
-        'speed' => 1000,
-        'text' => 'Employed Students',
+        'number' => 13,
+        'speed' => 1100,
+        'text' => 'Rokov praxe',
         'class' => ''
     ],
     [
-        'number' => 15,
-        'speed' => 1000,
-        'text' => 'Years Experience',
+        'number' => 5,
+        'speed' => 1100,
+        'text' => 'Prebiehajúce projekty',
         'class' => 'end'
     ]
 ];
