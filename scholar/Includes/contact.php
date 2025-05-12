@@ -14,7 +14,7 @@
                         <h6>kontaktujte nás</h6>
                         <h2>Neváhajte nás kedykoľvek kontaktovať</h2>
                         <p>Odpovedáme najneskôr do troch pracovných dní.<br>
-                            Ak to nestihneme, získavate zľavu 5 %.<br>
+                            Ak to nestihneme, získavate zľavu 5%.<br>
                             (<a href="dokumenty/podmienky.pdf" target="_blank" rel="noopener noreferrer">Bližšie podmienky tu</a>)
                         </p>
                         <div class="special-offer">

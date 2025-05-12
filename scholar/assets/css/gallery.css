@@ -24,18 +24,23 @@
 
 .events .item ul li {
     display: inline-block;
-    width: 17.5%;
+    width: 18%;
     vertical-align: middle;
 }
 
 .events .item ul li:first-child {
-    width: 35%;
+    width: 30%;
 }
 
 .events .item ul li:nth-of-type(2) {
-    width: 28%;
+    width: 15%;
+    margin-right: 5%; /* Pridáme margin medzi položkami */
+    margin-left: 8%; /* Pridáme margin medzi položkami */
 }
-
+.events .item ul li:nth-of-type(3) {
+    width: 15%;
+    margin-right: 5%; /* Pridáme margin medzi položkami */
+}
 .events .item ul li span.category {
     font-size: 14px;
     text-transform: uppercase;
@@ -80,4 +85,11 @@
     z-index: 1;
     color: #fff;
     border-radius: 60px 0px 0px 60px;
+}
+
+p1{
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 25px;
 }

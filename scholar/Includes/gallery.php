@@ -20,27 +20,27 @@
             $events = [
                 [
                     'image' => 'assets/images/event-01.jpg',
-                    'category' => 'Web Design',
-                    'title' => 'UI Best Practices',
-                    'date' => '16 Feb 2036',
-                    'duration' => '22 Hours',
-                    'price' => '$120'
+                    'category' => 'Detské akcie',
+                    'title' => 'ZOO Bojnice',
+                    'date' => '16 Feb 2021',
+                    'custumers' => '150+',
+                    'rating' => '4,3'
                 ],
                 [
-                    'image' => 'assets/images/event-02.jpg',
-                    'category' => 'Front End',
-                    'title' => 'New Design Trend',
-                    'date' => '24 Feb 2036',
-                    'duration' => '30 Hours',
-                    'price' => '$320'
+                    'image' => 'assets/images/event-01.jpg',
+                    'category' => 'Školy',
+                    'title' => 'Gymnázium, Bratislava',
+                    'date' => '2. máj 2024',
+                    'custumers' => '240+',
+                    'rating' => '4,9'
                 ],
                 [
-                    'image' => 'assets/images/event-03.jpg',
-                    'category' => 'Full Stack',
-                    'title' => 'Web Programming',
-                    'date' => '12 Mar 2036',
-                    'duration' => '48 Hours',
-                    'price' => '$440'
+                    'image' => 'assets/images/event-01.jpg',
+                    'category' => 'Firmy',
+                    'title' => 'Business Centrum, Trenčín',
+                    'date' => '16 Feb 2021',
+                    'custumers' => '80+',
+                    'rating' => '4,7'
                 ]
             ];
 
@@ -65,12 +65,12 @@
                                         <h6><?php echo $event['date']; ?></h6>
                                     </li>
                                     <li>
-                                        <span>Duration:</span>
-                                        <h6><?php echo $event['duration']; ?></h6>
+                                        <span>Počet účastníkov:</span>
+                                        <h6><?php echo $event['custumers']; ?></h6>
                                     </li>
                                     <li>
-                                        <span>Cena:</span>
-                                        <h6><?php echo $event['price']; ?></h6>
+                                        <span>Hodnotenie:</span>
+                                        <h6><?php echo $event['rating']; ?></h6>
                                     </li>
                                 </ul>
                                 <a href="#"><i class="fa fa-angle-right"></i></a>
@@ -79,6 +79,8 @@
                     </div>
                 </div>
             <?php endforeach; ?>
+            <p1><a href="dokumenty/podmienky.pdf" target="_blank" rel="noopener noreferrer">Celé Portfólio TU</a></p1>
         </div>
     </div>
+
 </div>
