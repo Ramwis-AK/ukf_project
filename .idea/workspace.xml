@@ -8,8 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/Includes/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/Includes/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/register.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/config/gorm_db.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/config/db_config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +118,7 @@
       <workItem from="1746641745238" duration="3089000" />
       <workItem from="1747077028669" duration="6598000" />
       <workItem from="1747083701330" duration="9147000" />
-      <workItem from="1747122563338" duration="8113000" />
+      <workItem from="1747122563338" duration="8424000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />

@@ -135,7 +135,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="login-links">
                 <p>Nemáte účet? <a href="register.php">Registrujte sa tu</a>.</p>
-                <p><a href="index.php">Späť na domovskú stránku</a></p>
+                <p><a href="../index.php">Späť na domovskú stránku</a></p>
             </div>
         </form>
     </div>
