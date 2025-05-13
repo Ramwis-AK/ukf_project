@@ -7,24 +7,24 @@
 $serviceItems = [
     [
         'icon' => 'assets/images/service-01.png',
-        'title' => 'Online Degrees',
-        'description' => 'Whenever you need free templates in HTML CSS, you just remember TemplateMo website.',
+        'title' => 'Eventy na mieru',
+        'description' => 'S každým zákaznikom si prejdeme jeho predstavu a očakávania. Pretože nám záleží.',
         'button_url' => '#',
-        'button_text' => 'Read More'
+        'button_text' => 'Zisti viac'
     ],
     [
         'icon' => 'assets/images/service-02.png',
-        'title' => 'Short Courses',
-        'description' => 'You can browse free templates based on different tags such as digital marketing, etc.',
+        'title' => 'Rýchlosť',
+        'description' => 'Veríme v kvalitnú prácu. Rýchlosť je len výhodou, ktorú ponúkame svojim zákaznikom. Pretože nám záleží.',
         'button_url' => '#',
-        'button_text' => 'Read More'
+        'button_text' => 'Zisti viac'
     ],
     [
         'icon' => 'assets/images/service-03.png',
-        'title' => 'Web Experts',
-        'description' => 'You can start learning HTML CSS by modifying free templates from our website too.',
+        'title' => 'Kvalita',
+        'description' => 'Pravdilne sa vzdelávame v oblasti, aby sme mohli priniesť ešte viac. Pretože nám záleží.',
         'button_url' => '#',
-        'button_text' => 'Read More'
+        'button_text' => 'Zisti viac'
     ]
 ];
 ?>

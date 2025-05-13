@@ -22,12 +22,6 @@ $factsItems = [
         'speed' => 1100,
         'text' => 'Rokov praxe',
         'class' => ''
-    ],
-    [
-        'number' => 5,
-        'speed' => 1100,
-        'text' => 'Prebiehajúce projekty',
-        'class' => 'end'
     ]
 ];
 ?>

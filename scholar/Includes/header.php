@@ -3,6 +3,11 @@
  * Header component
  */
 
+// Start session if not already started
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Define navigation items
 $navItems = [
     ['url' => '#top', 'text' => 'Domov', 'active' => true],
@@ -26,14 +31,22 @@ $navItems = [
                     </a>
                     <!-- Logo End -->
 
-                    <!-- Search Start -->
-                    <div class="search-input">
-                        <form id="search" action="#" method="get">
-                            <input type="text" placeholder="Type Something" id="searchText" name="searchKeyword" />
-                            <i class="fa fa-search"></i>
-                        </form>
+                    <!-- Auth Area Start -->
+                    <div class="auth-area">
+                        <?php if(isset($_SESSION['user_id'])): ?>
+                            <!-- User is logged in -->
+                            <div class="logged-in-user">
+                                <span>Vitaj, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                                <a href="logout.php" class="logout-btn">Odhlásiť sa</a>
+                            </div>
+                        <?php else: ?>
+                            <!-- User is not logged in -->
+                            <div class="login-register">
+                                <a href="login.php" class="login-btn">Prihlásiť sa / Registrovať</a>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                    <!-- Search End -->
+                    <!-- Auth Area End -->
 
                     <!-- Menu Start -->
                     <ul class="nav">
