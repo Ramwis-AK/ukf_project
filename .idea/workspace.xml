@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9e83e-8cb1-4201-9c01-c28797fd7eba" name="Changes" comment="funguj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/assets/css/auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/auth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/register.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/register.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/config/gorm_db.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/config/db_config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,11 +82,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\ukf_project\scholar\config" />
       <recent name="C:\xampp\htdocs\ukf_project\scholar\Includes" />
       <recent name="C:\xampp\htdocs\ukf_project\scholar" />
       <recent name="C:\xampp\htdocs\ukf_project" />
       <recent name="C:\xampp\htdocs\ukf_project\storage" />
-      <recent name="C:\xampp\htdocs\ukf_project\main" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -118,7 +120,7 @@
       <workItem from="1746641745238" duration="3089000" />
       <workItem from="1747077028669" duration="6598000" />
       <workItem from="1747083701330" duration="9147000" />
-      <workItem from="1747122563338" duration="6827000" />
+      <workItem from="1747122563338" duration="8113000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />

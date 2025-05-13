@@ -3,7 +3,7 @@
 session_start();
 
 // Include database configuration
-require_once 'db_config.php';
+require_once '../config/db_config.php';
 
 // Define variables and initialize with empty values
 $username = $email = $password = $confirm_password = "";

@@ -5,7 +5,7 @@
  */
 
 // Include configuration
-include_once('config/gorm_db.php');
+include_once('config/db_config.php');
 include_once('functions/helpers.php');
 
 // Page title
