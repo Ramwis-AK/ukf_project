@@ -1,12 +1,16 @@
 .auth-area {
     display: flex;
+    justify-content: flex-start;
     align-items: center;
-    margin-right: 20px;
+    margin-top: -10px; /* POSUN NAHOR */
+    margin-left: -15px;
+    gap: 10px;
 }
 
 .auth-area .logged-in-user {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 .auth-area .logged-in-user span {
@@ -16,20 +20,19 @@
 
 .auth-area .login-btn,
 .auth-area .logout-btn {
-    padding: 8px 15px;
+    padding: 8px 20px; /* zmenšené zo 100px na 20px */
     border-radius: 5px;
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s;
+    display: inline-block;
 }
 
 .auth-area .login-btn {
-    background-color: #4CAF50;
     color: white;
 }
 
 .auth-area .logout-btn {
-    background-color: #f44336;
     color: white;
 }
 

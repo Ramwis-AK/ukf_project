@@ -42,7 +42,7 @@ $navItems = [
                         <?php else: ?>
                             <!-- User is not logged in -->
                             <div class="login-register">
-                                <a href="login.php" class="login-btn">Prihlásiť sa / Registrovať</a>
+                                <a href="Includes/login.php" class="login-btn">Prihlásiť sa  Registrovať</a>
                             </div>
                         <?php endif; ?>
                     </div>

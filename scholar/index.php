@@ -54,6 +54,7 @@ foreach ($stylesheets as $css) {
     <link rel="stylesheet" href="assets/css/gallery.css">
     <link rel="stylesheet" href="assets/css/contact.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
 
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
 </head>
