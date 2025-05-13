@@ -2,7 +2,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-top: -10px; /* POSUN NAHOR */
+    margin-top: -12px; /* POSUN NAHOR */
     margin-left: -15px;
     gap: 10px;
 }
