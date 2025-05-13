@@ -9,7 +9,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'scholar_db');
+define('DB_NAME', 'gorm_db');
 
 /**
  * Create a database connection
@@ -25,7 +25,7 @@ function get_db_connection() {
     }
 
     // Create new connection
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, gorm_db);
 
     // Check connection
     if ($conn->connect_error) {

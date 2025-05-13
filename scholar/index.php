@@ -5,11 +5,22 @@
  */
 
 // Include configuration
-include_once('config/db.php');
+include_once('config/gorm_db.php');
 include_once('functions/helpers.php');
 
 // Page title
 $pageTitle = "Scholar - Online School PHP Template";
+
+
+$stylesheets = [
+    'global', 'preloader', 'header', 'banner', 'service', 'about',
+    'courses', 'facts', 'team', 'testimonials', 'gallery', 'contact', 'footer'
+];
+
+foreach ($stylesheets as $css) {
+    echo "<link rel='stylesheet' href='assets/css/{$css}.css'>\n";
+}
+
 ?>
 
 <!DOCTYPE html>

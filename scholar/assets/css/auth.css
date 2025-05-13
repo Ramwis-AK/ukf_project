@@ -1,0 +1,39 @@
+.auth-area {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.auth-area .logged-in-user {
+    display: flex;
+    align-items: center;
+}
+
+.auth-area .logged-in-user span {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.auth-area .login-btn,
+.auth-area .logout-btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.auth-area .login-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.auth-area .logout-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.auth-area .login-btn:hover,
+.auth-area .logout-btn:hover {
+    opacity: 0.9;
+}
