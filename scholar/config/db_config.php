@@ -1,257 +1,234 @@
 <?php
 /**
- * Database configuration
- *
- * @package Scholar
+ * Bezpečné pripojenie k databáze
+ * Súbor: db_config.php
  */
 
-// Database credentials
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'gorm_db');
-
-/**
- * Create a database connection
- *
- * @return mysqli|false MySQLi connection object or false on failure
- */
-function get_db_connection() {
-    static $conn = null;
-
-    // If connection already established, return it
-    if ($conn !== null) {
-        return $conn;
-    }
-
-    // Create new connection
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, gorm_db);
-
-    // Check connection
-    if ($conn->connect_error) {
-        error_log("Database connection failed: " . $conn->connect_error);
-        return false;
-    }
-
-    // Set charset to UTF-8
-    $conn->set_charset('utf8mb4');
-
-    return $conn;
+// Zabráni priamemu prístupu k súboru
+if (!defined('DB_ACCESS_ALLOWED')) {
+    die('Priamy prístup nie je povolený');
 }
 
-/**
- * Execute a query and return results
- *
- * @param string $sql SQL query
- * @param array $params Parameters for prepared statement
- * @return array|false Results as associative array or false on failure
- */
-function db_query($sql, $params = []) {
-    $conn = get_db_connection();
+class DatabaseConnection {
+    private static $instance = null;
+    private $connection;
 
-    if (!$conn) {
-        return false;
+    // Databázové konfiguračné údaje - ZMEŇTE PODĽA VAŠICH NASTAVENÍ
+    private const DB_HOST = 'localhost';
+    private const DB_NAME = 'gorm_db';
+    private const DB_USER = 'your_username';  // ZMEŇTE
+    private const DB_PASS = 'your_password';  // ZMEŇTE
+    private const DB_CHARSET = 'utf8mb4';
+
+    private function __construct() {
+        $this->connect();
     }
 
-    $stmt = $conn->prepare($sql);
-
-    if (!$stmt) {
-        error_log("Query preparation failed: " . $conn->error);
-        return false;
-    }
-
-    // Bind parameters if any
-    if (!empty($params)) {
-        $types = '';
-        foreach ($params as $param) {
-            if (is_int($param)) {
-                $types .= 'i';
-            } elseif (is_float($param)) {
-                $types .= 'd';
-            } elseif (is_string($param)) {
-                $types .= 's';
-            } else {
-                $types .= 'b';
-            }
+    /**
+     * Singleton pattern - jedna inštancia pripojenia
+     */
+    public static function getInstance() {
+        if (self::$instance === null) {
+            self::$instance = new self();
         }
-
-        $bind_params = array_merge([$types], $params);
-        $stmt->bind_param(...$bind_params);
+        return self::$instance;
     }
 
-    // Execute the statement
-    if (!$stmt->execute()) {
-        error_log("Query execution failed: " . $stmt->error);
-        $stmt->close();
-        return false;
+    /**
+     * Vytvorenie bezpečného pripojenia k databáze
+     */
+    private function connect() {
+        try {
+            $dsn = "mysql:host=" . self::DB_HOST . ";dbname=" . self::DB_NAME . ";charset=" . self::DB_CHARSET;
+
+            $options = [
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES   => false,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES " . self::DB_CHARSET,
+                PDO::ATTR_PERSISTENT         => false,
+                PDO::ATTR_TIMEOUT            => 30
+            ];
+
+            $this->connection = new PDO($dsn, self::DB_USER, self::DB_PASS, $options);
+
+        } catch (PDOException $e) {
+            error_log("Chyba pripojenia k databáze: " . $e->getMessage());
+            die("Chyba pripojenia k databáze. Skúste neskôr.");
+        }
     }
 
-    $result = $stmt->get_result();
-
-    if (!$result) {
-        // For INSERT, UPDATE, DELETE queries
-        $stmt->close();
-        return true;
+    /**
+     * Získanie pripojenia k databáze
+     */
+    public function getConnection() {
+        return $this->connection;
     }
 
-    // Fetch all results
-    $data = $result->fetch_all(MYSQLI_ASSOC);
+    /**
+     * Bezpečné vykonanie SELECT dotazu
+     */
+    public function select($query, $params = []) {
+        try {
+            $stmt = $this->connection->prepare($query);
+            $stmt->execute($params);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            error_log("Chyba SELECT dotazu: " . $e->getMessage());
+            return false;
+        }
+    }
 
-    $stmt->close();
+    /**
+     * Bezpečné vykonanie INSERT dotazu
+     */
+    public function insert($query, $params = []) {
+        try {
+            $stmt = $this->connection->prepare($query);
+            $result = $stmt->execute($params);
+            return $result ? $this->connection->lastInsertId() : false;
+        } catch (PDOException $e) {
+            error_log("Chyba INSERT dotazu: " . $e->getMessage());
+            return false;
+        }
+    }
 
-    return $data;
+    /**
+     * Bezpečné vykonanie UPDATE dotazu
+     */
+    public function update($query, $params = []) {
+        try {
+            $stmt = $this->connection->prepare($query);
+            $stmt->execute($params);
+            return $stmt->rowCount();
+        } catch (PDOException $e) {
+            error_log("Chyba UPDATE dotazu: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Bezpečné vykonanie DELETE dotazu
+     */
+    public function delete($query, $params = []) {
+        try {
+            $stmt = $this->connection->prepare($query);
+            $stmt->execute($params);
+            return $stmt->rowCount();
+        } catch (PDOException $e) {
+            error_log("Chyba DELETE dotazu: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Začatie transakcie
+     */
+    public function beginTransaction() {
+        return $this->connection->beginTransaction();
+    }
+
+    /**
+     * Potvrdenie transakcie
+     */
+    public function commit() {
+        return $this->connection->commit();
+    }
+
+    /**
+     * Zrušenie transakcie
+     */
+    public function rollback() {
+        return $this->connection->rollback();
+    }
+
+    /**
+     * Validácia a sanitizácia vstupných údajov
+     */
+    public static function sanitizeInput($input) {
+        if (is_string($input)) {
+            return trim(htmlspecialchars($input, ENT_QUOTES, 'UTF-8'));
+        }
+        return $input;
+    }
+
+    /**
+     * Validácia číselných hodnôt
+     */
+    public static function validateInt($value, $min = null, $max = null) {
+        $value = filter_var($value, FILTER_VALIDATE_INT);
+        if ($value === false) return false;
+
+        if ($min !== null && $value < $min) return false;
+        if ($max !== null && $value > $max) return false;
+
+        return $value;
+    }
+
+    /**
+     * Validácia email adresy
+     */
+    public static function validateEmail($email) {
+        return filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    /**
+     * Hashovanie hesiel
+     */
+    public static function hashPassword($password) {
+        return password_hash($password, PASSWORD_ARGON2ID, [
+            'memory_cost' => 65536,
+            'time_cost' => 4,
+            'threads' => 3
+        ]);
+    }
+
+    /**
+     * Overenie hesla
+     */
+    public static function verifyPassword($password, $hash) {
+        return password_verify($password, $hash);
+    }
+
+    /**
+     * Zatvorenie pripojenia
+     */
+    public function __destruct() {
+        $this->connection = null;
+    }
+
+    // Zabránenie klonovaniu
+    private function __clone() {}
+
+    // Zabránenie unserialize
+    public function __wakeup() {
+        throw new Exception("Unserializácia nie je povolená");
+    }
 }
 
 /**
- * Get a single row from the database
- *
- * @param string $sql SQL query
- * @param array $params Parameters for prepared statement
- * @return array|false First row as associative array or false on failure
+ * Funkcia pre jednoduché získanie inštancie databázy
  */
-function db_get_row($sql, $params = []) {
-    $results = db_query($sql, $params);
-
-    if ($results === false || empty($results)) {
-        return false;
-    }
-
-    return $results[0];
+function getDB() {
+    return DatabaseConnection::getInstance();
 }
 
 /**
- * Insert data into a table
- *
- * @param string $table Table name
- * @param array $data Associative array of column => value
- * @return int|false Last insert ID or false on failure
+ * Funkcia pre bezpečné pripojenie k databáze na jednotlivých stránkach
  */
-function db_insert($table, $data) {
-    $conn = get_db_connection();
-
-    if (!$conn) {
-        return false;
+function connectToDatabase() {
+    // Definovanie konštanty pre povolenie prístupu
+    if (!defined('DB_ACCESS_ALLOWED')) {
+        define('DB_ACCESS_ALLOWED', true);
     }
 
-    $columns = implode(', ', array_keys($data));
-    $placeholders = implode(', ', array_fill(0, count($data), '?'));
-
-    $sql = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-
-    $stmt = $conn->prepare($sql);
-
-    if (!$stmt) {
-        error_log("Insert preparation failed: " . $conn->error);
-        return false;
-    }
-
-    // Bind parameters
-    $types = '';
-    $values = [];
-
-    foreach ($data as $value) {
-        if (is_int($value)) {
-            $types .= 'i';
-        } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_string($value)) {
-            $types .= 's';
-        } else {
-            $types .= 'b';
-        }
-        $values[] = $value;
-    }
-
-    $bind_params = array_merge([$types], $values);
-    $stmt->bind_param(...$bind_params);
-
-    // Execute the statement
-    if (!$stmt->execute()) {
-        error_log("Insert execution failed: " . $stmt->error);
-        $stmt->close();
-        return false;
-    }
-
-    $last_id = $conn->insert_id;
-    $stmt->close();
-
-    return $last_id;
+    return DatabaseConnection::getInstance();
 }
 
-/**
- * Update data in a table
- *
- * @param string $table Table name
- * @param array $data Associative array of column => value
- * @param string $where Where clause (without "WHERE")
- * @param array $where_params Parameters for where clause
- * @return bool True on success, false on failure
- */
-function db_update($table, $data, $where, $where_params = []) {
-    $conn = get_db_connection();
-
-    if (!$conn) {
-        return false;
-    }
-
-    $set_clauses = [];
-    foreach (array_keys($data) as $column) {
-        $set_clauses[] = "$column = ?";
-    }
-
-    $set_clause = implode(', ', $set_clauses);
-
-    $sql = "UPDATE $table SET $set_clause WHERE $where";
-
-    $stmt = $conn->prepare($sql);
-
-    if (!$stmt) {
-        error_log("Update preparation failed: " . $conn->error);
-        return false;
-    }
-
-    // Bind parameters
-    $types = '';
-    $values = [];
-
-    foreach ($data as $value) {
-        if (is_int($value)) {
-            $types .= 'i';
-        } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_string($value)) {
-            $types .= 's';
-        } else {
-            $types .= 'b';
-        }
-        $values[] = $value;
-    }
-
-    foreach ($where_params as $value) {
-        if (is_int($value)) {
-            $types .= 'i';
-        } elseif (is_float($value)) {
-            $types .= 'd';
-        } elseif (is_string($value)) {
-            $types .= 's';
-        } else {
-            $types .= 'b';
-        }
-        $values[] = $value;
-    }
-
-    $bind_params = array_merge([$types], $values);
-    $stmt->bind_param(...$bind_params);
-
-    // Execute the statement
-    if (!$stmt->execute()) {
-        error_log("Update execution failed: " . $stmt->error);
-        $stmt->close();
-        return false;
-    }
-
-    $affected_rows = $stmt->affected_rows;
-    $stmt->close();
-
-    return $affected_rows > 0;
+// Nastavenie error reportingu pre produkčné prostredie
+if (!defined('DEVELOPMENT_MODE')) {
+    ini_set('display_errors', 0);
+    ini_set('log_errors', 1);
+    error_reporting(E_ALL);
 }
+?>}

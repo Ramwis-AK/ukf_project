@@ -10,77 +10,67 @@ $username = $password = "";
 $username_err = $password_err = $login_err = "";
 
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate username
-    if(empty(trim($_POST["username"]))) {
+    if (empty(trim($_POST["username"]))) {
         $username_err = "Prosím zadajte používateľské meno.";
     } else {
         $username = trim($_POST["username"]);
     }
 
     // Validate password
-    if(empty(trim($_POST["password"]))) {
+    if (empty(trim($_POST["password"]))) {
         $password_err = "Prosím zadajte heslo.";
     } else {
         $password = trim($_POST["password"]);
     }
 
     // Validate credentials
-    if(empty($username_err) && empty($password_err)) {
-        // Prepare a select statement
-        $conn = connectDB();
+    if (empty($username_err) && empty($password_err)) {
+        // Get DB connection
+        $conn = get_db_connection();
         $sql = "SELECT id, username, password FROM users WHERE username = ?";
 
-        if($stmt = $conn->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
+        if ($stmt = $conn->prepare($sql)) {
             $stmt->bind_param("s", $param_username);
-
-            // Set parameters
             $param_username = $username;
 
-            // Attempt to execute the prepared statement
-            if($stmt->execute()) {
-                // Store result
+            if ($stmt->execute()) {
                 $stmt->store_result();
 
-                // Check if username exists, if yes then verify password
-                if($stmt->num_rows == 1) {
-                    // Bind result variables
+                if ($stmt->num_rows == 1) {
                     $stmt->bind_result($id, $username, $hashed_password);
-                    if($stmt->fetch()) {
-                        if(password_verify($password, $hashed_password)) {
+                    if ($stmt->fetch()) {
+                        if (password_verify($password, $hashed_password)) {
                             // Password is correct, so start a new session
-
-                            // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["user_id"] = $id;
                             $_SESSION["username"] = $username;
 
-                            // Redirect user to home page
+                            // Redirect to homepage
                             header("location: index.php");
+                            exit;
                         } else {
-                            // Password is not valid, display a generic error message
                             $login_err = "Nesprávne meno alebo heslo.";
                         }
                     }
                 } else {
-                    // Username doesn't exist, display a generic error message
                     $login_err = "Nesprávne meno alebo heslo.";
                 }
             } else {
                 echo "Ups! Niečo sa pokazilo. Skúste neskôr.";
             }
 
-            // Close statement
             $stmt->close();
         }
 
         // Close connection
-        closeDB($conn);
+        $conn->close(); // alebo closeDB($conn), ak si to máš definované
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="sk">
