@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9e83e-8cb1-4201-9c01-c28797fd7eba" name="Changes" comment="funguj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/banner.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/banner.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/assets/css/banner.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/banner.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +120,7 @@
       <workItem from="1747083701330" duration="9147000" />
       <workItem from="1747122563338" duration="8591000" />
       <workItem from="1749380450902" duration="16000" />
+      <workItem from="1749975800218" duration="1384000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />
