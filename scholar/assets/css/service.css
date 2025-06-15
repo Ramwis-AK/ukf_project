@@ -7,7 +7,7 @@
     margin-top: 95px;
 }
 
-.services .service-item .icon {
+.services .service-item .icon{
     width: 190px;
     height: 190px;
     display: inline-block;
@@ -17,8 +17,9 @@
     border-radius: 50%;
     position: absolute;
     right: 0;
-    top: -95px;
+    top: -100px;
 }
+
 
 .services .service-item .icon img {
     max-width: 86px;

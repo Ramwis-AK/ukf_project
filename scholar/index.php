@@ -46,7 +46,7 @@ foreach ($stylesheets as $css) {
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/auth.css">
     <link rel="stylesheet" href="assets/css/banner.css">
-    <link rel="stylesheet" href="assets/css/service.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/service.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="assets/css/about.css">
     <link rel="stylesheet" href="assets/css/courses.css">
     <link rel="stylesheet" href="assets/css/facts.css">
