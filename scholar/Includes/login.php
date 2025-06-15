@@ -1,55 +1,66 @@
 <?php
-// Start the session
+// Definuj, že prístup do DB je povolený (ak to vyžaduje tvoj db_config)
+define('DB_ACCESS_ALLOWED', true);
+
+// Spusti session
 session_start();
 
 // Include database configuration
 require_once '../config/db_config.php';
 
-// Define variables and initialize with empty values
+// Premenné na ukladanie vstupov a chýb
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
 
-// Processing form data when form is submitted
+// Spracovanie formulára
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Validate username
+    // Overenie používateľského mena
     if (empty(trim($_POST["username"]))) {
         $username_err = "Prosím zadajte používateľské meno.";
     } else {
         $username = trim($_POST["username"]);
     }
 
-    // Validate password
+    // Overenie hesla
     if (empty(trim($_POST["password"]))) {
         $password_err = "Prosím zadajte heslo.";
     } else {
         $password = trim($_POST["password"]);
     }
 
-    // Validate credentials
+    // Ak nie sú chyby, over používateľa
     if (empty($username_err) && empty($password_err)) {
-        // Get DB connection
         $conn = get_db_connection();
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+
+        if (!$conn) {
+            die("Nepodarilo sa pripojiť k databáze.");
+        }
+
+        $sql = "SELECT id, username, password, role FROM users WHERE username = ?";
 
         if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("s", $param_username);
-            $param_username = $username;
+            $stmt->bind_param("s", $username);
 
             if ($stmt->execute()) {
                 $stmt->store_result();
 
                 if ($stmt->num_rows == 1) {
-                    $stmt->bind_result($id, $username, $hashed_password);
+                    $stmt->bind_result($id, $username_db, $hashed_password, $role);
                     if ($stmt->fetch()) {
                         if (password_verify($password, $hashed_password)) {
-                            // Password is correct, so start a new session
+                            // Heslo správne - nastav session premenné
                             $_SESSION["loggedin"] = true;
                             $_SESSION["user_id"] = $id;
-                            $_SESSION["username"] = $username;
+                            $_SESSION["username"] = $username_db;
+                            $_SESSION["role"] = $role;
 
-                            // Redirect to homepage
-                            header("location: index.php");
+                            // Presmeruj podľa role (napr. admin na admin panel)
+                            if ($role === 'admin') {
+                                header("location: admin/index.php");
+                            } else {
+                                header("location: index.php");
+                            }
                             exit;
                         } else {
                             $login_err = "Nesprávne meno alebo heslo.";
@@ -65,11 +76,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->close();
         }
 
-        // Close connection
-        $conn->close(); // alebo closeDB($conn), ak si to máš definované
+        $conn->close();
     }
 }
 ?>
+
 
 
 <!DOCTYPE html>

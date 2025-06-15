@@ -4,6 +4,8 @@
  * Main index file
  */
 
+define('DB_ACCESS_ALLOWED', true);
+session_start();
 // Include configuration
 include_once('config/db_config.php');
 include_once('functions/helpers.php');

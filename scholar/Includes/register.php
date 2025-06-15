@@ -1,141 +1,113 @@
 <?php
-// Start the session
-session_start();
+// Definuj, že prístup do DB je povolený
+define('DB_ACCESS_ALLOWED', true);
 
 // Include database configuration
 require_once '../config/db_config.php';
 
-// Define variables and initialize with empty values
+// Premenné pre údaje a chyby
 $username = $email = $password = $confirm_password = "";
 $username_err = $email_err = $password_err = $confirm_password_err = "";
 
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+// Spracovanie formulára
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $conn = connectDB();
+    $conn = get_db_connection();
 
-    // Validate username
-    if(empty(trim($_POST["username"]))) {
+    if (!$conn) {
+        die("Nepodarilo sa pripojiť k databáze.");
+    }
+
+    // Overenie používateľského mena
+    if (empty(trim($_POST["username"]))) {
         $username_err = "Prosím zadajte používateľské meno.";
     } else {
-        // Prepare a select statement
         $sql = "SELECT id FROM users WHERE username = ?";
-
-        if($stmt = $conn->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
+        if ($stmt = $conn->prepare($sql)) {
+            $param_username = trim($_POST["username"]);
             $stmt->bind_param("s", $param_username);
 
-            // Set parameters
-            $param_username = trim($_POST["username"]);
-
-            // Attempt to execute the prepared statement
-            if($stmt->execute()) {
-                // Store result
+            if ($stmt->execute()) {
                 $stmt->store_result();
-
-                if($stmt->num_rows > 0) {
+                if ($stmt->num_rows > 0) {
                     $username_err = "Toto používateľské meno je už obsadené.";
                 } else {
-                    $username = trim($_POST["username"]);
+                    $username = $param_username;
                 }
             } else {
                 echo "Ups! Niečo sa pokazilo. Skúste neskôr.";
             }
-
-            // Close statement
             $stmt->close();
         }
     }
 
-    // Validate email
-    if(empty(trim($_POST["email"]))) {
+    // Overenie emailu
+    if (empty(trim($_POST["email"]))) {
         $email_err = "Prosím zadajte emailovú adresu.";
+    } elseif (!filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
+        $email_err = "Prosím zadajte platnú emailovú adresu.";
     } else {
-        // Check if email is valid
-        if(!filter_var(trim($_POST["email"]), FILTER_VALIDATE_EMAIL)) {
-            $email_err = "Prosím zadajte platnú emailovú adresu.";
-        } else {
-            // Check if email already exists
-            $sql = "SELECT id FROM users WHERE email = ?";
+        $sql = "SELECT id FROM users WHERE email = ?";
+        if ($stmt = $conn->prepare($sql)) {
+            $param_email = trim($_POST["email"]);
+            $stmt->bind_param("s", $param_email);
 
-            if($stmt = $conn->prepare($sql)) {
-                // Bind variables to the prepared statement as parameters
-                $stmt->bind_param("s", $param_email);
-
-                // Set parameters
-                $param_email = trim($_POST["email"]);
-
-                // Attempt to execute the prepared statement
-                if($stmt->execute()) {
-                    // Store result
-                    $stmt->store_result();
-
-                    if($stmt->num_rows > 0) {
-                        $email_err = "Táto emailová adresa je už registrovaná.";
-                    } else {
-                        $email = trim($_POST["email"]);
-                    }
+            if ($stmt->execute()) {
+                $stmt->store_result();
+                if ($stmt->num_rows > 0) {
+                    $email_err = "Táto emailová adresa je už registrovaná.";
                 } else {
-                    echo "Ups! Niečo sa pokazilo. Skúste neskôr.";
+                    $email = $param_email;
                 }
-
-                // Close statement
-                $stmt->close();
+            } else {
+                echo "Ups! Niečo sa pokazilo. Skúste neskôr.";
             }
+            $stmt->close();
         }
     }
 
-    // Validate password
-    if(empty(trim($_POST["password"]))) {
+    // Overenie hesla
+    if (empty(trim($_POST["password"]))) {
         $password_err = "Prosím zadajte heslo.";
-    } elseif(strlen(trim($_POST["password"])) < 6) {
+    } elseif (strlen(trim($_POST["password"])) < 6) {
         $password_err = "Heslo musí mať aspoň 6 znakov.";
     } else {
         $password = trim($_POST["password"]);
     }
 
-    // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))) {
+    // Overenie potvrdenia hesla
+    if (empty(trim($_POST["confirm_password"]))) {
         $confirm_password_err = "Prosím potvrďte heslo.";
     } else {
         $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($password_err) && ($password != $confirm_password)) {
+        if (empty($password_err) && ($password != $confirm_password)) {
             $confirm_password_err = "Heslá sa nezhodujú.";
         }
     }
 
-    // Check input errors before inserting in database
-    if(empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
+    // Ak nie sú chyby, vlož používateľa do DB
+    if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
+        $sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'user')";
 
-        // Prepare an insert statement
-        $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+        if ($stmt = $conn->prepare($sql)) {
+            $param_password = password_hash($password, PASSWORD_DEFAULT);
+            $stmt->bind_param("sss", $username, $email, $param_password);
 
-        if($stmt = $conn->prepare($sql)) {
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("sss", $param_username, $param_email, $param_password);
-
-            // Set parameters
-            $param_username = $username;
-            $param_email = $email;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-
-            // Attempt to execute the prepared statement
-            if($stmt->execute()) {
-                // Redirect to login page
+            if ($stmt->execute()) {
+                // Po registrácii presmeruj na login
                 header("location: login.php");
+                exit;
             } else {
                 echo "Ups! Niečo sa pokazilo. Skúste neskôr.";
             }
-
-            // Close statement
             $stmt->close();
         }
     }
 
-    // Close connection
-    closeDB($conn);
+    $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="sk">
