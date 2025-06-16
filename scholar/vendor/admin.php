@@ -4,9 +4,15 @@ session_start();
 
 // Skontroluj či je používateľ prihlásený a má admin práva
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true || $_SESSION["role"] !== 'admin') {
-    header("location: ../Includes/login.php");
+    header("location: ../scholar/login.php");
     exit;
 }
+if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
+    // Nesmieš sa sem dostať
+    header("Location: ../index.php");
+    exit;
+}
+
 
 // Include database configuration if needed
 // require_once '../config/db_config.php';

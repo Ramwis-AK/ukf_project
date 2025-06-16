@@ -7,9 +7,9 @@
 define('DB_ACCESS_ALLOWED', true);
 session_start();
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
-    // Odmietni prístup a presmeruj späť
-    header("Location: ../scholar/index.php");
+
+if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
+    header("Location: ../admin.php");
     exit;
 }
 

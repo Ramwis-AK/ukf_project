@@ -1,25 +1,25 @@
 <?php
 // Define banner slides (buttons removed)
-$bannerSlides = [
-    [
-        'item_class' => 'item-1',
-        'category' => 'Our Courses',
-        'title' => 'With Scholar Teachers, Everything Is Easier',
-        'description' => 'Scholar is free CSS template designed by TemplateMo for online educational related websites. This layout is based on the famous Bootstrap v5.3.0 framework.',
-    ],
-    [
-        'item_class' => 'item-2',
-        'category' => 'Best Result',
-        'title' => 'Get the best result out of your effort',
-        'description' => 'You are allowed to use this template for any educational or commercial purpose. You are not allowed to re-distribute the template ZIP file on any other website.',
-    ],
-    [
-        'item_class' => 'item-3',
-        'category' => 'Online Learning',
-        'title' => 'Online Learning helps you save the time',
-        'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporious incididunt ut labore et dolore magna aliqua suspendisse.',
-    ]
-];
+
+// Pripojenie k DB
+$mysqli = new mysqli('localhost', 'username', 'password', 'database');
+if ($mysqli->connect_error) {
+    die('Chyba pripojenia: ' . $mysqli->connect_error);
+}
+
+// Načítanie bannerov z DB
+$result = $mysqli->query("SELECT * FROM banners ORDER BY id ASC");
+
+$bannerSlides = [];
+while ($row = $result->fetch_assoc()) {
+    $bannerSlides[] = [
+        'item_class' => $row['item_class'],
+        'category' => $row['category'],
+        'title' => $row['title'],
+        'image_path' => $row['image_path'],
+    ];
+}
+
 ?>
 
 <!-- Main Banner Area with taller height -->
@@ -30,7 +30,7 @@ $bannerSlides = [
         align-items: center;
     }
     .main-banner .item {
-        min-height: 550px;
+        min-height: 600px;
         display: flex;
         align-items: center;
     }
@@ -46,7 +46,6 @@ $bannerSlides = [
                         <div class="item <?php echo $slide['item_class']; ?>">
                             <div class="header-text">
                                 <h2><?php echo $slide['title']; ?></h2>
-                                <p><?php echo $slide['description']; ?></p>
                             </div>
                         </div>
                     <?php endforeach; ?>

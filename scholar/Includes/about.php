@@ -2,34 +2,18 @@
 /**
  * About Us component
  */
+$sql = "SELECT * FROM questions WHERE is_visible = 1 ORDER BY display_order ASC";
+$result = $mysqli->query($sql);
 
-// Define accordion items
-$accordionItems = [
-    [
-        'id' => 'One',
-        'title' => 'Where shall we begin?',
-        'content' => 'Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn\'t eiusmod tempor incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.',
-        'show' => true
-    ],
-    [
-        'id' => 'Two',
-        'title' => 'How do we work together?',
-        'content' => 'Dolor <strong>almesit amet</strong>, consectetur adipiscing elit, sed doesn\'t eiusmod tempor incididunt ut labore consectetur <code>adipiscing</code> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida.',
-        'show' => false
-    ],
-    [
-        'id' => 'Three',
-        'title' => 'Why SCHOLAR is the best?',
-        'content' => 'There are more than one hundred responsive HTML templates to choose from <strong>Template</strong>Mo website. You can browse by different tags or categories.',
-        'show' => false
-    ],
-    [
-        'id' => 'Four',
-        'title' => 'Do we get the best support?',
-        'content' => 'You can also search on Google with specific keywords such as <code>templatemo business templates, templatemo gallery templates, admin dashboard templatemo, 3-column templatemo, etc.</code>',
-        'show' => false
-    ]
-];
+$accordionItems = [];
+while ($row = $result->fetch_assoc()) {
+    $accordionItems[] = [
+        'id' => 'item-' . $row['id'],  // môžeš si vytvoriť podľa ID
+        'title' => $row['title'],
+        'content' => $row['content'],
+        'show' => (bool)$row['is_visible']
+    ];
+}
 
 ?>
 
