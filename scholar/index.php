@@ -31,6 +31,7 @@ foreach ($stylesheets as $css) {
 }
 
 ?>
+<?php require_once 'functions/helpers.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">

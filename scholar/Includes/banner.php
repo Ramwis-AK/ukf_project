@@ -16,23 +16,24 @@
 //        'image_path' => $row['image_path'],
 //    ];
 //}
-$bannerSlides = [
-    [
-        'item_class' => 'item-1',
-        'category' => 'Our Courses',
-        'title' => 'With Scholar Teachers, Everything Is Easier',
-    ],
-    [
-        'item_class' => 'item-2',
-        'category' => 'Best Result',
-        'title' => 'Get the best result out of your effort',
-    ],
-    [
-        'item_class' => 'item-3',
-        'category' => 'Online Learning',
-        'title' => 'Online Learning helps you save the time',
-    ]
-];
+//$bannerSlides = [
+//    [
+//        'item_class' => 'item-1',
+//        'category' => 'Our Courses',
+//        'title' => 'With Scholar Teachers, Everything Is Easier',
+//    ],
+//    [
+//        'item_class' => 'item-2',
+ //       'category' => 'Best Result',
+//        'title' => 'Get the best result out of your effort',
+//    ],
+//    [
+//        'item_class' => 'item-3',
+//        'category' => 'Online Learning',
+//        'title' => 'Online Learning helps you save the time',
+//    ]
+//];
+$banners = getBanners();
 ?>
 
 <!-- Main Banner Area with taller height -->
@@ -55,10 +56,13 @@ $bannerSlides = [
             <div class="col-lg-12">
                 <div class="owl-carousel owl-banner">
 
-                    <?php foreach ($bannerSlides as $slide) : ?>
-                        <div class="item <?php echo $slide['item_class']; ?>">
+                    <?php foreach ($banners as $banner) : ?>
+                        <div class="item <?php echo htmlspecialchars($banner['item_class']); ?>">
                             <div class="header-text">
-                                <h2><?php echo $slide['title']; ?></h2>
+                                <h2><?php echo htmlspecialchars($banner['title']); ?></h2>
+                                <?php if (!empty($banner['image_path'])): ?>
+                                    <img src="<?php echo htmlspecialchars($banner['image_path']); ?>" alt="<?php echo htmlspecialchars($banner['title']); ?>">
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>
