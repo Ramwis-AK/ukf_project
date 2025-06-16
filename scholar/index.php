@@ -6,6 +6,13 @@
 
 define('DB_ACCESS_ALLOWED', true);
 session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
+    // Odmietni prístup a presmeruj späť
+    header("Location: ../scholar/index.php");
+    exit;
+}
+
 // Include configuration
 include_once('config/db_config.php');
 include_once('functions/helpers.php');
