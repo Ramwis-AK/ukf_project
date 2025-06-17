@@ -22,13 +22,14 @@ $banners = getBanners();
             <div class="col-lg-12">
                 <div class="owl-carousel owl-banner">
 
-                    <?php foreach ($banners as $banner) : ?>
-                        <div class="item <?php echo htmlspecialchars($banner['item_class']); ?>">
+                    <?php
+                    $base_url = '/ukf_project/scholar/images/'; // správna cesta k obrázkom
+                    foreach ($banners as $banner) : ?>
+                        <div class="item <?php echo htmlspecialchars($banner['item_class']); ?>"
+                             style="background-image: url('<?php echo $base_url . htmlspecialchars($banner['image_path']); ?>');">
+                            <div class="banner-overlay"></div>
                             <div class="header-text">
                                 <h2><?php echo htmlspecialchars($banner['title']); ?></h2>
-                                <?php if (!empty($banner['image_path'])): ?>
-                                    <img src="<?php echo htmlspecialchars($banner['image_path']); ?>" alt="<?php echo htmlspecialchars($banner['title']); ?>">
-                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>

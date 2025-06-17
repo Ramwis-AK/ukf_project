@@ -6,18 +6,6 @@
     padding: 170px 0px 120px 0px;
 }
 
-.main-banner .item-1 {
-    background-image: url(../images/banner-item-01.jpg);
-}
-
-.main-banner .item-2 {
-    background-image: url(../images/banner-item-02.jpg);
-}
-
-.main-banner .item-3 {
-    background-image: url(../images/banner-item-03.jpg);
-}
-
 .main-banner .item {
     background-repeat: no-repeat;
     background-position: center center;
@@ -25,6 +13,28 @@
     border-radius: 25px;
     padding: 100px 100px;
     margin-left: 130px;
+    height: 400px; /* Dôležité – výška, aby sa zobrazil background */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* tmavý prekryv pre lepšiu čitateľnosť */
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+}
+
+.header-text {
+    padding: 0 100px;
+    z-index: 2;
 }
 
 .main-banner .item span.category {
@@ -45,6 +55,7 @@
     line-height: 70px;
     width: 60%;
     margin-bottom: 40px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
 }
 
 .main-banner .item p {
@@ -103,7 +114,7 @@
 .main-banner .owl-nav .owl-prev i,
 .main-banner .owl-nav .owl-next i {
     width: 50px;
-    height: 500px;
+    height: 50px;
     line-height: 50px;
     font-size: 24px;
     display: inline-block;
