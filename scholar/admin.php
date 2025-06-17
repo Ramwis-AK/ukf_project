@@ -496,7 +496,7 @@ $pageTitle = "Admin Panel - Scholar";
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    window.location.href = 'login.php';  // alebo kam chceš presmerovať po odhlásení
+                    window.location.href = '/ukf_project/scholar/index.php';  // alebo kam chceš presmerovať po odhlásení
                 } else {
                     alert('Chyba pri odhlasovaní');
                 }

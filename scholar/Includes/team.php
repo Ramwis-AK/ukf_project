@@ -17,11 +17,13 @@ $team_members = getTeamMembers();
                             <span class="category"><?php echo $member['category']; ?></span>
                             <h4><?php echo $member['name']; ?></h4>
                             <ul class="social-icons">
-                                <li><a href="<?php echo $member['facebook']; ?>"><i class="fab fa-facebook"></i></a></li>
-                                <li><a href="<?php echo $member['twitter']; ?>"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="<?php echo $member['linkedin']; ?>"><i class="fab fa-linkedin"></i></a></li>
+                                <li><a href="<?php echo $member['facebook']; ?>"><i class="fab fa-facebook" style="position: relative; top: 12px;"></i></a></li>
+                                <li><a href="<?php echo $member['twitter']; ?>"><i class="fab fa-twitter" style="position: relative; top: 12px;"></i>
+                                    </a></li>
+                                <li><a href="<?php echo $member['linkedin']; ?>"><i class="fab fa-linkedin" style="position: relative; top: 12px;"></i></a></li>
                             </ul>
                         </div>
+
                     </div>
                 </div>
             <?php endforeach; ?>
