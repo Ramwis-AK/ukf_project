@@ -1,7 +1,6 @@
 <?php
 $banners = getBanners();
 ?>
-<!-- Main Banner Area with taller height -->
 <style>
     .main-banner {
         min-height: 300px;
@@ -20,19 +19,18 @@ $banners = getBanners();
         <div class="row">
             <div class="col-lg-12">
                 <div class="owl-carousel owl-banner">
-
                     <?php foreach ($banners as $banner) : ?>
-                        <div class="item <?php echo htmlspecialchars($banner['item_class']); ?>">
-                            <?php
-                            $base_url = "//localhost/ukf_project/scholar/";
-                            $image_url = $base_url . $banner['image_path'];
-                            ?>
-                            <img src="<?php echo htmlspecialchars($image_url); ?>" alt="Banner Image">
+                        <?php
+                        $base_url = "//localhost/ukf_project/scholar/";
+                        $image_url = $base_url . $banner['image_path'];
+                        ?>
+                        <div class="item <?php echo htmlspecialchars($banner['item_class']); ?>"
+                             style="background-image: url('<?php echo htmlspecialchars($image_url); ?>');">
+                            <h2><?php echo htmlspecialchars($banner['title']); ?></h2>
                             <div class="banner-overlay"></div>
                             <div class="header-text"></div>
                         </div>
                     <?php endforeach; ?>
-
                 </div>
             </div>
         </div>

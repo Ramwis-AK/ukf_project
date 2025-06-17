@@ -3,7 +3,7 @@
     background-position: right bottom;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 170px 0px 120px 0px;
+    padding: 170px 0 120px 0;
 }
 
 .main-banner .item {
@@ -11,19 +11,26 @@
     background-position: center center;
     background-size: cover;
     border-radius: 25px;
-    padding: 100px 100px;
+    padding: 100px;
     margin-left: 130px;
+    height: 400px; /* dôležité pre background */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.main-banner .item span.category {
-    background-color: #7a6ad8;
-    color: #fff;
-    font-size: 14px;
-    text-transform: uppercase;
-    padding: 5px 15px;
-    border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 50px;
+.banner-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+}
+
+.header-text {
+    position: relative;
+    z-index: 2;
+    padding: 0;
 }
 
 .main-banner .item h2 {
@@ -33,51 +40,12 @@
     line-height: 70px;
     width: 60%;
     margin-bottom: 40px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
 }
 
 .main-banner .item p {
     color: #fff;
     width: 65%;
-}
-
-.main-banner .item .buttons {
-    display: flex;
-    margin-top: 50px;
-}
-
-.main-banner .item .buttons .main-button {
-    margin-right: 30px;
-}
-
-.main-banner .item .buttons .main-button a {
-    font-size: 14px;
-    color: #7a6ad8;
-    background-color: #fff;
-    display: inline-block;
-    height: 50px;
-    line-height: 50px;
-    padding: 0px 25px;
-    border-radius: 25px;
-    font-weight: 500;
-}
-
-.main-banner .item .buttons .icon-button i {
-    color: #7a6ad8;
-    background-color: #fff;
-    display: inline-block;
-    height: 50px;
-    width: 50px;
-    text-align: center;
-    line-height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-    font-size: 16px;
-}
-
-.main-banner .item .buttons .icon-button a {
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
 }
 
 .main-banner .owl-nav {
@@ -91,7 +59,7 @@
 .main-banner .owl-nav .owl-prev i,
 .main-banner .owl-nav .owl-next i {
     width: 50px;
-    height: 500px;
+    height: 50px; /* opravené */
     line-height: 50px;
     font-size: 24px;
     display: inline-block;

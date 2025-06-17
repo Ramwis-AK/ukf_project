@@ -57,12 +57,12 @@
 
 
 	$('.owl-banner').owlCarousel({
-		center: true,
+		center: false,
       items:1,
       loop:true,
       nav: true,
 	  navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-      margin:30,
+      margin:0,
       responsive:{
         992:{
             items:1
@@ -74,12 +74,12 @@
 	});
 
 	$('.owl-testimonials').owlCarousel({
-	  center: true,
+	  center: false,
       items:1,
       loop:true,
       nav: true,
 	  navText: ['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
-      margin:30,
+      margin: 0,
       responsive:{
         992:{
             items:1

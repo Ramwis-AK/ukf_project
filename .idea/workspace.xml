@@ -8,7 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/Includes/banner.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/banner.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/assets/css/banner.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/banner.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/functions/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/functions/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/assets/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/js/custom.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +127,7 @@
       <workItem from="1750058844353" duration="752000" />
       <workItem from="1750059898526" duration="3583000" />
       <workItem from="1750087721877" duration="3249000" />
-      <workItem from="1750142018145" duration="5525000" />
+      <workItem from="1750142018145" duration="8452000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />
