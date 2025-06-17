@@ -1,31 +1,26 @@
 <?php
-// Definuj, že prístup do DB je povolený
 define('DB_ACCESS_ALLOWED', true);
-
-// Spusti session
 session_start();
-
-// Include database configuration - opravená cesta
 require_once __DIR__ . '/../config/db_config.php';
 
-// Premenné na ukladanie vstupov a chýb
+// Vytvor si inštanciu Database
+$db = Database::getInstance();
+
 $username = $email = $password = $confirm_password = "";
 $username_err = $email_err = $password_err = $confirm_password_err = "";
 
-// Spracovanie formulára
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Overenie používateľského mena
+    // Používateľské meno
     if (empty(trim($_POST["username"]))) {
         $username_err = "Prosím zadajte používateľské meno.";
     } elseif (strlen(trim($_POST["username"])) < 3) {
         $username_err = "Používateľské meno musí mať aspoň 3 znaky.";
     } else {
-        $username = DatabaseConnection::sanitizeInput(trim($_POST["username"]));
+        $username = Database::sanitizeInput(trim($_POST["username"]));
 
-        // Skontroluj, či už meno existuje
         try {
-            $db = getDB();
+            // Tu už voláme na inštancii, nie staticky
             $result = $db->select("SELECT user_ID FROM users WHERE username = ?", [$username]);
             if ($result && count($result) > 0) {
                 $username_err = "Toto používateľské meno už existuje.";
@@ -35,17 +30,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Overenie emailu
+    // Email
     if (empty(trim($_POST["email"]))) {
         $email_err = "Prosím zadajte email.";
     } else {
         $email = trim($_POST["email"]);
-        if (!DatabaseConnection::validateEmail($email)) {
+        if (!Database::validateEmail($email)) {
             $email_err = "Neplatný formát emailu.";
         } else {
-            // Skontroluj, či už email existuje
             try {
-                $db = getDB();
                 $result = $db->select("SELECT user_ID FROM users WHERE email = ?", [$email]);
                 if ($result && count($result) > 0) {
                     $email_err = "Tento email už je registrovaný.";
@@ -56,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Overenie hesla
+    // Heslo
     if (empty(trim($_POST["password"]))) {
         $password_err = "Prosím zadajte heslo.";
     } elseif (strlen(trim($_POST["password"])) < 6) {
@@ -65,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = trim($_POST["password"]);
     }
 
-    // Overenie potvrdenia hesla
+    // Potvrdenie hesla
     if (empty(trim($_POST["confirm_password"]))) {
         $confirm_password_err = "Prosím potvrďte heslo.";
     } else {
@@ -75,17 +68,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Ak nie sú chyby, vlož do databázy
+    // Ak je všetko OK, vlož používateľa
     if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
         try {
-            $db = getDB();
-            $hashed_password = DatabaseConnection::hashPassword($password);
+            // hashPassword pravdepodobne statická utilita
+            $hashed_password = Database::hashPassword($password);
 
             $sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'user')";
             $result = $db->insert($sql, [$username, $email, $hashed_password]);
 
             if ($result) {
-                // Registrácia úspešná
                 $_SESSION['success_message'] = "Registrácia bola úspešná. Môžete sa prihlásiť.";
                 header("location: login.php");
                 exit;
@@ -99,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="sk">
