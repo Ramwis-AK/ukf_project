@@ -47,8 +47,13 @@ $events = getEvents();
                     </div>
                 </div>
             <?php endforeach; ?>
-            <p1><a href="dokumenty/podmienky.pdf" target="_blank" rel="noopener noreferrer">Celé Portfólio TU</a></p1>
+            <p class="portfolio-link">
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                    Viac na našom Instagrame
+                    <img src="/ukf_project/scholar/assets/images/test.jpg" alt="Instagram" class="insta-icon">
+                </a>
+            </p>
+
         </div>
     </div>
-
 </div>

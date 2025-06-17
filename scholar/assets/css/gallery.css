@@ -1,46 +1,67 @@
-.events .section-heading {
-    margin-bottom: 100px;
-}
-
 .events .item {
     background-color: #f1f0fe;
     border-radius: 25px;
     position: relative;
     padding: 40px;
-    margin-bottom: 96px;
+    margin-bottom: 55px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 120px; /* pevná výška pre jednotný vzhľad */
+    height: 65%; /* zúženie šírky z 100% */
+}
+
+.events .item .row {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
 }
 
 .events .item .image {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .events .item .image img {
-    position: absolute;
+    position: static;
     border-radius: 25px;
-    max-width: 260px;
-    left: 0;
-    top: -70px;
+    max-width: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    margin-top: -35px;
+}
+
+.events .item ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 100%;
 }
 
 .events .item ul li {
     display: inline-block;
-    width: 18%;
+    width: 22%;
     vertical-align: middle;
+    margin-bottom: 10px;
 }
 
 .events .item ul li:first-child {
     width: 30%;
 }
 
-.events .item ul li:nth-of-type(2) {
-    width: 15%;
-    margin-right: 5%; /* Pridáme margin medzi položkami */
-    margin-left: 8%; /* Pridáme margin medzi položkami */
+.events .item ul li:nth-of-type(2),
+.events .item ul li:nth-of-type(3),
+.events .item ul li:nth-of-type(4) {
+    width: 18%;
+    margin: 0 2%;
 }
-.events .item ul li:nth-of-type(3) {
-    width: 15%;
-    margin-right: 5%; /* Pridáme margin medzi položkami */
-}
+
 .events .item ul li span.category {
     font-size: 14px;
     text-transform: uppercase;
@@ -74,22 +95,40 @@
 .events .item a {
     position: absolute;
     right: 0;
-    top: 22px;
+    top: 50%;
+    transform: translateY(-50%);
     background-color: #7a6ad8;
     width: 60px;
     height: 120px;
-    display: inline-block;
-    text-align: center;
-    line-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 18px;
     z-index: 1;
     color: #fff;
     border-radius: 60px 0px 0px 60px;
 }
 
-p1{
+.portfolio-link {
     text-align: center;
-    font-style: italic;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.portfolio-link a {
+    color: #7a6ad8; /* fialová */
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 20px; /* medzera medzi textom a obrázkom */
+}
+
+.portfolio-link a:hover {
+    text-decoration: underline;
+}
+
+.portfolio-link .insta-icon {
+    width: 44px;
+    height: 44px;
 }
