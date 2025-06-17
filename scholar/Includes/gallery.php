@@ -1,9 +1,5 @@
 <?php
-/**
- * Events section template
- *
- * @package Scholar
- */
+$events = getEvents();
 ?>
 
 <div class="section events" id="events">
@@ -16,34 +12,6 @@
                 </div>
             </div>
             <?php
-            // You can fetch events from database here
-            $events = [
-                [
-                    'image' => 'assets/images/event-01.jpg',
-                    'category' => 'Detské akcie',
-                    'title' => 'ZOO Bojnice',
-                    'date' => '16 Feb 2021',
-                    'custumers' => '150+',
-                    'rating' => '4,3'
-                ],
-                [
-                    'image' => 'assets/images/event-01.jpg',
-                    'category' => 'Školy',
-                    'title' => 'Gymnázium, Bratislava',
-                    'date' => '2. máj 2024',
-                    'custumers' => '240+',
-                    'rating' => '4,9'
-                ],
-                [
-                    'image' => 'assets/images/event-01.jpg',
-                    'category' => 'Firmy',
-                    'title' => 'Business Centrum, Trenčín',
-                    'date' => '16 Feb 2021',
-                    'custumers' => '80+',
-                    'rating' => '4,7'
-                ]
-            ];
-
             foreach ($events as $event) :
                 ?>
                 <div class="col-lg-12 col-md-6">

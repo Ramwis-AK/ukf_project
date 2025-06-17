@@ -24,9 +24,12 @@ function getTestimonials() {
     $stmt = $pdo->query("SELECT * FROM testimonials");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-function getCourses() {
+function getEvents() {
     global $pdo;
-    $stmt = $pdo->query("SELECT * FROM courses");
+    $stmt = $pdo->query(" SELECT * FROM events
+        ORDER BY date DESC, rating DESC
+        LIMIT 4
+    ");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
