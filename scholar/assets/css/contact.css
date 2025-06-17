@@ -99,14 +99,6 @@
     border-radius: 50%;
 }
 
-.contact-us .special-offer a i.fa-angle-right {
-    position: relative;
-    top: 15px; /* alebo iná hodnota podľa potreby */
-    display: inline-block; /* aby fungoval posun */
-}
-
-
-
 .contact-us .contact-us-content {
     border-radius: 25px;
     padding: 80px;

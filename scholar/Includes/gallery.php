@@ -71,7 +71,7 @@ class GallerySection
                     <p class="portfolio-link">
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
                             Viac na našom Instagrame
-                            <img src="/ukf_project/scholar/assets/images/test.jpg" alt="Instagram" class="insta-icon">
+                            <img src="/ukf_project/scholar/assets/images/ig.png" alt="Instagram" class="insta-icon">
                         </a>
                     </p>
 
