@@ -32,4 +32,16 @@ function getEvents() {
     ");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getCourseCategories() {
+    global $pdo;
+    $stmt = $pdo->query("SELECT * FROM course_categories ORDER BY id");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getCourses() {
+    global $pdo;
+    $stmt = $pdo->query("SELECT c.*, cc.filter FROM courses c LEFT JOIN course_categories cc ON c.category_id = cc.id ORDER BY c.id");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
