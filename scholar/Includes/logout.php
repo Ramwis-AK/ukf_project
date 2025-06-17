@@ -18,6 +18,7 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Presmeruj na hlavnú stránku
-header("location: index.php");
+header("location: /ukf_project/scholar/index.php");
 exit;
 ?>
+

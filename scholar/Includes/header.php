@@ -37,7 +37,7 @@ $navItems = [
                             <!-- User is logged in -->
                             <div class="logged-in-user">
                                 <span>Vitaj, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
-                                <a href="logout.php" class="logout-btn">Odhlásiť sa</a>
+                                <a href="/ukf_project/scholar/includes/logout.php" class="logout-btn">Odhlásiť sa</a>
                             </div>
                         <?php else: ?>
                             <!-- User is not logged in -->
