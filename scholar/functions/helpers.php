@@ -1,116 +1,104 @@
 <?php
-// Načítaj databázové pripojenie
-require_once __DIR__ . '/../config/db.php';
+require_once __DIR__ . '/../config/db_config.php';
 
-// Existujúce funkcie
-function getBanners() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT * FROM banners");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+class Helpers {
+    private Database $db;
 
-function getFacts() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT * FROM facts");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getTeamMembers() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT * FROM team");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getTestimonials() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT * FROM testimonials");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getEvents() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT * FROM events ORDER BY date DESC, rating DESC LIMIT 4");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getCourseCategories() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT * FROM course_categories ORDER BY id");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getCourses() {
-    global $pdo;
-    $stmt = $pdo->query("SELECT c.*, cc.filter FROM courses c LEFT JOIN course_categories cc ON c.category_id = cc.id ORDER BY c.id");
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Nové autentifikačné funkcie
-function isLoggedIn() {
-    return isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
-}
-
-function isAdmin() {
-    return isLoggedIn() && isset($_SESSION['role']) && $_SESSION['role'] === 'admin';
-}
-
-function getCurrentUser() {
-    if (isLoggedIn()) {
-        return [
-            'user_id' => $_SESSION['user_id'],
-            'username' => $_SESSION['username'],
-            'role' => $_SESSION['role']
-        ];
+    public function __construct() {
+        $this->db = Database::getInstance();
     }
-    return null;
-}
 
-function requireLogin() {
-    if (!isLoggedIn()) {
-        header("Location: Includes/login.php");
-        exit;
+    // --- OBSAH WEBU ---
+
+    public function getBanners(): array {
+        return $this->db->select("SELECT * FROM banners");
     }
-}
 
-function requireAdmin() {
-    if (!isAdmin()) {
-        header("Location: index.php");
-        exit;
+    public function getFacts(): array {
+        return $this->db->select("SELECT * FROM facts");
     }
-}
 
-function generateCSRFToken() {
-    if (empty($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    public function getTeamMembers(): array {
+        return $this->db->select("SELECT * FROM team");
     }
-    return $_SESSION['csrf_token'];
-}
 
-function validateCSRFToken($token) {
-    return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
-}
+    public function getTestimonials(): array {
+        return $this->db->select("SELECT * FROM testimonials");
+    }
 
-// Funkcia na získanie aktuálneho užívateľa z databázy
-function getUserById($userId) {
-    try {
-        global $pdo;
-        $stmt = $pdo->prepare("SELECT user_ID, username, email, role FROM users WHERE user_ID = ?");
-        $stmt->execute([$userId]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        error_log("Error getting user: " . $e->getMessage());
+    public function getEvents(): array {
+        return $this->db->select("SELECT * FROM events ORDER BY date DESC, rating DESC LIMIT 4");
+    }
+
+    public function getCourseCategories(): array {
+        return $this->db->select("SELECT * FROM course_categories ORDER BY id");
+    }
+
+    public function getCourses(): array {
+        return $this->db->select("
+            SELECT c.*, cc.filter 
+            FROM courses c 
+            LEFT JOIN course_categories cc ON c.category_id = cc.id 
+            ORDER BY c.id
+        ");
+    }
+
+    // --- AUTH METÓDY ---
+
+    public static function isLoggedIn(): bool {
+        return isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
+    }
+
+    public static function isAdmin(): bool {
+        return self::isLoggedIn() && ($_SESSION['role'] ?? null) === 'admin';
+    }
+
+    public static function getCurrentUser(): ?array {
+        if (self::isLoggedIn()) {
+            return [
+                'user_id' => $_SESSION['user_id'] ?? null,
+                'username' => $_SESSION['username'] ?? null,
+                'role' => $_SESSION['role'] ?? null
+            ];
+        }
         return null;
     }
-}
 
-// Funkcia na aktualizáciu posledného prihlásenia
-function updateLastLogin($userId) {
-    try {
-        global $pdo;
-        $stmt = $pdo->prepare("UPDATE users SET last_login = NOW() WHERE user_ID = ?");
-        $stmt->execute([$userId]);
-    } catch (Exception $e) {
-        error_log("Error updating last login: " . $e->getMessage());
+    public static function requireLogin(): void {
+        if (!self::isLoggedIn()) {
+            header("Location: Includes/login.php");
+            exit;
+        }
+    }
+
+    public static function requireAdmin(): void {
+        if (!self::isAdmin()) {
+            header("Location: index.php");
+            exit;
+        }
+    }
+
+    public static function generateCSRFToken(): string {
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf_token'];
+    }
+
+    public static function validateCSRFToken(string $token): bool {
+        return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
+    }
+
+    // --- PRÁCA S UŽÍVATEĽMI ---
+
+    public function getUserById(int|string $userId): ?array {
+        $userId = Database::sanitizeInput($userId);
+        $result = $this->db->select("SELECT user_ID, username, email, role FROM users WHERE user_ID = ?", [$userId]);
+        return $result[0] ?? null;
+    }
+
+    public function updateLastLogin(int|string $userId): bool {
+        $userId = Database::sanitizeInput($userId);
+        return $this->db->update("UPDATE users SET last_login = NOW() WHERE user_ID = ?", [$userId]);
     }
 }
-?>

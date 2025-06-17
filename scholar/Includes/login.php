@@ -1,68 +1,38 @@
 <?php
-// Definuj, že prístup do DB je povolený
 define('DB_ACCESS_ALLOWED', true);
-
-// Spusti session
 session_start();
 
-// Include database configuration - opravená cesta
-require_once __DIR__ . '/../config/db_config.php';
+require_once __DIR__ . '/../functions/user.php';
 
-// Premenné na ukladanie vstupov a chýb
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
 
-// Spracovanie formulára
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+$userModel = new User();
 
-    // Overenie používateľského mena
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty(trim($_POST["username"]))) {
         $username_err = "Prosím zadajte používateľské meno.";
     } else {
-        $username = DatabaseConnection::sanitizeInput(trim($_POST["username"]));
+        $username = trim($_POST["username"]);
     }
 
-    // Overenie hesla
     if (empty(trim($_POST["password"]))) {
         $password_err = "Prosím zadajte heslo.";
     } else {
-        $password = trim($_POST["password"]);
+        $password = $_POST["password"];
     }
 
-    // Ak nie sú chyby, over používateľa
     if (empty($username_err) && empty($password_err)) {
-        try {
-            $db = getDB();
-
-            $sql = "SELECT user_ID, username, password, role FROM users WHERE username = ?";
-            $result = $db->select($sql, [$username]);
-
-            if ($result && count($result) > 0) {
-                $user = $result[0];
-
-                if (DatabaseConnection::verifyPassword($password, $user['password'])) {
-                    // Heslo správne - nastav session premenné
-                    $_SESSION["loggedin"] = true;
-                    $_SESSION["user_id"] = $user['user_ID'];
-                    $_SESSION["username"] = $user['username'];
-                    $_SESSION["role"] = $user['role'];
-
-                    // Presmeruj podľa role
-                    if ($user['role'] === 'admin') {
-                        header("location: ../admin.php");
-                    } else {
-                        header("location: ../index.php");
-                    }
-                    exit;
-                } else {
-                    $login_err = "Nesprávne meno alebo heslo.";
-                }
+        if ($userModel->login($username, $password)) {
+            // Presmerovanie podľa roly
+            if ($_SESSION["role"] === 'admin') {
+                header("Location: ../admin.php");
             } else {
-                $login_err = "Nesprávne meno alebo heslo.";
+                header("Location: ../index.php");
             }
-        } catch (Exception $e) {
-            $login_err = "Chyba pri prihlasovaní. Skúste neskôr.";
-            error_log("Login error: " . $e->getMessage());
+            exit;
+        } else {
+            $login_err = "Nesprávne meno alebo heslo.";
         }
     }
 }
