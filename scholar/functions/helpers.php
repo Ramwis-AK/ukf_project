@@ -7,9 +7,14 @@ function getBanners() {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getFacts() {
+    global $pdo;
+    $stmt = $pdo->query("SELECT * FROM facts");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 function getCourses() {
     global $pdo;
-    $stmt = $pdo->query("SELECT * FROM courses ORDER BY id DESC");
+    $stmt = $pdo->query("SELECT * FROM courses");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>

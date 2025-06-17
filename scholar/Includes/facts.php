@@ -1,29 +1,5 @@
 <?php
-/**
- * Fun Facts component
- */
-
-// Define facts items
-$factsItems = [
-    [
-        'number' => 150,
-        'speed' => 1100,
-        'text' => 'Eventov',
-        'class' => ''
-    ],
-    [
-        'number' => 80000,
-        'speed' => 1100,
-        'text' => 'Spokojných účastníkov',
-        'class' => ''
-    ],
-    [
-        'number' => 13,
-        'speed' => 1100,
-        'text' => 'Rokov praxe',
-        'class' => ''
-    ]
-];
+$factsItems = getFacts();
 ?>
 
 <!-- Fun Facts Section -->
