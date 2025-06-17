@@ -3,7 +3,7 @@ require_once __DIR__ . '/../config/db.php';
 
 function getBanners() {
     global $pdo;
-    $stmt = $pdo->query("SELECT * FROM banners ORDER BY created_at DESC");
+    $stmt = $pdo->query("SELECT * FROM banners");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 

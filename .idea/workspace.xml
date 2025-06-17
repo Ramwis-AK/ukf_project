@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/Includes/banner.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/banner.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scholar/assets/css/banner.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/banner.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/functions/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/functions/helpers.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +54,7 @@
     &quot;accountId&quot;: &quot;74aeaf2b-a506-49bb-87f7-d402f21317e3&quot;
   }
 }</component>
+  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -80,11 +82,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\ukf_project\scholar\assets\images" />
       <recent name="C:\xampp\htdocs\ukf_project\scholar\config" />
       <recent name="C:\xampp\htdocs\ukf_project\scholar\Includes" />
       <recent name="C:\xampp\htdocs\ukf_project\scholar" />
       <recent name="C:\xampp\htdocs\ukf_project" />
-      <recent name="C:\xampp\htdocs\ukf_project\storage" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -125,7 +127,7 @@
       <workItem from="1750058844353" duration="752000" />
       <workItem from="1750059898526" duration="3583000" />
       <workItem from="1750087721877" duration="3249000" />
-      <workItem from="1750142018145" duration="3220000" />
+      <workItem from="1750142018145" duration="5525000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />
