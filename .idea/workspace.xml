@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9e83e-8cb1-4201-9c01-c28797fd7eba" name="Changes" comment="funguj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/banner.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/banner.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/assets/css/banner.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/banner.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/assets/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/js/custom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/Includes/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/services.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/assets/css/service.css" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/assets/css/service.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +126,7 @@
       <workItem from="1750058844353" duration="752000" />
       <workItem from="1750059898526" duration="3583000" />
       <workItem from="1750087721877" duration="3249000" />
-      <workItem from="1750142018145" duration="8452000" />
+      <workItem from="1750142018145" duration="9141000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />

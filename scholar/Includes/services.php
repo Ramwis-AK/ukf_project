@@ -9,22 +9,16 @@ $serviceItems = [
         'icon' => 'assets/images/service-01.png',
         'title' => 'Eventy na mieru',
         'description' => 'S každým zákaznikom si prejdeme jeho predstavu a očakávania. Pretože nám záleží.',
-        'button_url' => '#',
-        'button_text' => 'Zisti viac'
     ],
     [
         'icon' => 'assets/images/service-02.png',
         'title' => 'Rýchlosť',
         'description' => 'Veríme v kvalitnú prácu. Rýchlosť je len výhodou, ktorú ponúkame svojim zákaznikom. Pretože nám záleží.',
-        'button_url' => '#',
-        'button_text' => 'Zisti viac'
     ],
     [
         'icon' => 'assets/images/service-03.png',
         'title' => 'Kvalita',
         'description' => 'Pravdilne sa vzdelávame v oblasti, aby sme mohli priniesť ešte viac. Pretože nám záleží.',
-        'button_url' => '#',
-        'button_text' => 'Zisti viac'
     ]
 ];
 ?>
@@ -43,9 +37,6 @@ $serviceItems = [
                         <div class="main-content">
                             <h4><?php echo $service['title']; ?></h4>
                             <p><?php echo $service['description']; ?></p>
-                            <div class="main-button">
-                                <a href="<?php echo $service['button_url']; ?>"><?php echo $service['button_text']; ?></a>
-                            </div>
                         </div>
                     </div>
                 </div>
