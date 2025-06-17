@@ -8,12 +8,12 @@ require_once 'config/db_config.php';
 require_once 'functions/helpers.php';
 
 // Skontroluj, či je používateľ prihlásený a je admin
-if (!isLoggedIn() || !isAdmin()) {
+if (!Helpers::isLoggedIn() || !Helpers::isAdmin()) {
     header("Location: includes/login.php");
     exit;
 }
 
-$currentUser = getCurrentUser();
+$currentUser = Helpers::getCurrentUser();
 $pageTitle = "Admin Panel - Scholar";
 ?>
 
@@ -191,9 +191,9 @@ $pageTitle = "Admin Panel - Scholar";
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <i class="fas fa-graduation-cap me-2"></i>
-            <button id="logoutBtn">Odhlásiť sa</button>
             Scholar Admin
         </a>
+        <button id="logoutBtn" class="btn btn-outline-light">Odhlásiť sa</button>
 
         <div class="navbar-nav ms-auto">
             <div class="nav-item dropdown">
@@ -409,7 +409,6 @@ $pageTitle = "Admin Panel - Scholar";
 
     // Load dashboard statistics
     function loadDashboardStats() {
-        // Simulate API calls - replace with actual AJAX calls
         fetch('admin_api.php?action=get_stats')
             .then(response => response.json())
             .then(data => {
@@ -489,14 +488,14 @@ $pageTitle = "Admin Panel - Scholar";
             console.log('Delete user:', userId);
         }
     }
-</script>
-<script>
+
+    // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', () => {
         fetch('admin_api.php?action=logout')
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
-                    window.location.href = '/ukf_project/scholar/index.php';  // alebo kam chceš presmerovať po odhlásení
+                    window.location.href = '/ukf_project/scholar/index.php';
                 } else {
                     alert('Chyba pri odhlasovaní');
                 }
@@ -505,5 +504,4 @@ $pageTitle = "Admin Panel - Scholar";
     });
 </script>
 </body>
-</html>
 </html>

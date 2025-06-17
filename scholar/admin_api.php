@@ -9,7 +9,7 @@ require_once 'functions/helpers.php';
 
 // Skontroluj admin práva (okrem logout akcie)
 $action = $_GET['action'] ?? '';
-if ($action !== 'logout' && (!isLoggedIn() || !isAdmin())) {
+if ($action !== 'logout' && (!Helpers::isLoggedIn() || !Helpers::isAdmin())) {
     http_response_code(403);
     echo json_encode(['error' => 'Unauthorized']);
     exit;
@@ -19,7 +19,7 @@ if ($action !== 'logout' && (!isLoggedIn() || !isAdmin())) {
 header('Content-Type: application/json');
 
 try {
-    $db = getDB();
+    $db = Database::getInstance();
 
     switch ($action) {
         case 'get_stats':
@@ -73,8 +73,8 @@ try {
         case 'update_user':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $userId = $_POST['user_id'] ?? 0;
-                $username = DatabaseConnection::sanitizeInput($_POST['username'] ?? '');
-                $email = DatabaseConnection::sanitizeInput($_POST['email'] ?? '');
+                $username = Database::sanitizeInput($_POST['username'] ?? '');
+                $email = Database::sanitizeInput($_POST['email'] ?? '');
                 $role = $_POST['role'] ?? 'user';
 
                 // Validácia
@@ -83,7 +83,7 @@ try {
                     break;
                 }
 
-                if (!DatabaseConnection::validateEmail($email)) {
+                if (!Database::validateEmail($email)) {
                     echo json_encode(['error' => 'Neplatný email formát']);
                     break;
                 }
@@ -104,8 +104,8 @@ try {
 
         case 'add_user':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $username = DatabaseConnection::sanitizeInput($_POST['username'] ?? '');
-                $email = DatabaseConnection::sanitizeInput($_POST['email'] ?? '');
+                $username = Database::sanitizeInput($_POST['username'] ?? '');
+                $email = Database::sanitizeInput($_POST['email'] ?? '');
                 $password = $_POST['password'] ?? '';
                 $role = $_POST['role'] ?? 'user';
 
@@ -115,7 +115,7 @@ try {
                     break;
                 }
 
-                if (!DatabaseConnection::validateEmail($email)) {
+                if (!Database::validateEmail($email)) {
                     echo json_encode(['error' => 'Neplatný email formát']);
                     break;
                 }
@@ -133,7 +133,7 @@ try {
                 }
 
                 // Zahashuj heslo a pridaj používateľa
-                $hashedPassword = DatabaseConnection::hashPassword($password);
+                $hashedPassword = Database::hashPassword($password);
                 $result = $db->insert(
                     "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)",
                     [$username, $email, $hashedPassword, $role]
@@ -163,4 +163,3 @@ try {
     echo json_encode(['error' => 'Systémová chyba']);
 }
 ?>
-
