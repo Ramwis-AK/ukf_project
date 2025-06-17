@@ -1,50 +1,12 @@
 <?php
-/**
- * Team section template
- *
- * @package Scholar
- */
+$team_members = getTeamMembers();
 ?>
 
 <div class="team section" id="team">
     <div class="container">
         <div class="row">
             <?php
-            // You can fetch team members from database here
-            $team_members = [
-                [
-                    'image' => 'assets/images/member-01.jpg',
-                    'category' => 'UX Teacher',
-                    'name' => 'Sophia Rose',
-                    'facebook' => '#',
-                    'twitter' => '#',
-                    'linkedin' => '#'
-                ],
-                [
-                    'image' => 'assets/images/member-02.jpg',
-                    'category' => 'Graphic Teacher',
-                    'name' => 'Cindy Walker',
-                    'facebook' => '#',
-                    'twitter' => '#',
-                    'linkedin' => '#'
-                ],
-                [
-                    'image' => 'assets/images/member-03.jpg',
-                    'category' => 'Full Stack Master',
-                    'name' => 'David Hutson',
-                    'facebook' => '#',
-                    'twitter' => '#',
-                    'linkedin' => '#'
-                ],
-                [
-                    'image' => 'assets/images/member-04.jpg',
-                    'category' => 'Digital Animator',
-                    'name' => 'Stella Blair',
-                    'facebook' => '#',
-                    'twitter' => '#',
-                    'linkedin' => '#'
-                ]
-            ];
+
 
             foreach ($team_members as $member) :
                 ?>

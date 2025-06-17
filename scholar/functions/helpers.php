@@ -12,6 +12,12 @@ function getFacts() {
     $stmt = $pdo->query("SELECT * FROM facts");
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getTeamMembers() {
+    global $pdo;
+    $stmt = $pdo->query("SELECT * FROM team");
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 function getCourses() {
     global $pdo;
     $stmt = $pdo->query("SELECT * FROM courses");
