@@ -16,8 +16,8 @@ class DatabaseConnection {
     // Databázové konfiguračné údaje - ZMEŇTE PODĽA VAŠICH NASTAVENÍ
     private const DB_HOST = 'localhost';
     private const DB_NAME = 'gorm_db';
-    private const DB_USER = 'your_username';  // ZMEŇTE
-    private const DB_PASS = 'your_password';  // ZMEŇTE
+    private const DB_USER = 'root';  // namiesto 'your_username'
+    private const DB_PASS = '';      // namiesto 'your_password'
     private const DB_CHARSET = 'utf8mb4';
 
     private function __construct() {

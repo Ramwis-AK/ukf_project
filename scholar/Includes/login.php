@@ -1,12 +1,12 @@
 <?php
-// Definuj, že prístup do DB je povolený (ak to vyžaduje tvoj db_config)
+// Definuj, že prístup do DB je povolený
 define('DB_ACCESS_ALLOWED', true);
 
 // Spusti session
 session_start();
 
-// Include database configuration
-require_once '../config/db_config.php';
+// Include database configuration - opravená cesta
+require_once __DIR__ . '/../config/db_config.php';
 
 // Premenné na ukladanie vstupov a chýb
 $username = $password = "";
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty(trim($_POST["username"]))) {
         $username_err = "Prosím zadajte používateľské meno.";
     } else {
-        $username = trim($_POST["username"]);
+        $username = DatabaseConnection::sanitizeInput(trim($_POST["username"]));
     }
 
     // Overenie hesla
@@ -31,102 +31,119 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Ak nie sú chyby, over používateľa
     if (empty($username_err) && empty($password_err)) {
-        $conn = get_db_connection();
+        try {
+            $db = getDB();
 
-        if (!$conn) {
-            die("Nepodarilo sa pripojiť k databáze.");
-        }
+            $sql = "SELECT user_ID, username, password, role FROM users WHERE username = ?";
+            $result = $db->select($sql, [$username]);
 
-        $sql = "SELECT id, username, password, role FROM users WHERE username = ?";
+            if ($result && count($result) > 0) {
+                $user = $result[0];
 
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("s", $username);
+                if (DatabaseConnection::verifyPassword($password, $user['password'])) {
+                    // Heslo správne - nastav session premenné
+                    $_SESSION["loggedin"] = true;
+                    $_SESSION["user_id"] = $user['user_ID'];
+                    $_SESSION["username"] = $user['username'];
+                    $_SESSION["role"] = $user['role'];
 
-            if ($stmt->execute()) {
-                $stmt->store_result();
-
-                if ($stmt->num_rows == 1) {
-                    $stmt->bind_result($id, $username_db, $hashed_password, $role);
-                    if ($stmt->fetch()) {
-                        if (password_verify($password, $hashed_password)) {
-                            // Heslo správne - nastav session premenné
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["user_id"] = $id;
-                            $_SESSION["username"] = $username_db;
-                            $_SESSION["role"] = $role;
-
-                            // Presmeruj podľa role (napr. admin na admin panel)
-                            if ($role === 'admin') {
-                                header("location: admin/index.php");
-                            } else {
-                                header("location: index.php");
-                            }
-                            exit;
-                        } else {
-                            $login_err = "Nesprávne meno alebo heslo.";
-                        }
+                    // Presmeruj podľa role
+                    if ($user['role'] === 'admin') {
+                        header("location: ../admin.php");
+                    } else {
+                        header("location: ../index.php");
                     }
+                    exit;
                 } else {
                     $login_err = "Nesprávne meno alebo heslo.";
                 }
             } else {
-                echo "Ups! Niečo sa pokazilo. Skúste neskôr.";
+                $login_err = "Nesprávne meno alebo heslo.";
             }
-
-            $stmt->close();
+        } catch (Exception $e) {
+            $login_err = "Chyba pri prihlasovaní. Skúste neskôr.";
+            error_log("Login error: " . $e->getMessage());
         }
-
-        $conn->close();
     }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prihlásenie - Gorm</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Prihlásenie - Scholar</title>
+
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+
     <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
         .login-form-container {
             max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: white;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
         }
         .login-links {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
+        }
+        .btn-primary {
+            background-color: #667eea;
+            border-color: #667eea;
+            padding: 12px;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #764ba2;
+            border-color: #764ba2;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        h2 {
+            color: #333;
+            font-weight: 700;
+            margin-bottom: 30px;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="login-form-container">
-        <h2 class="text-center mb-4">Prihlásenie</h2>
+        <h2 class="text-center">Prihlásenie</h2>
 
         <?php
         if(!empty($login_err)){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
+        }
+        if(isset($_SESSION['success_message'])){
+            echo '<div class="alert alert-success">' . $_SESSION['success_message'] . '</div>';
+            unset($_SESSION['success_message']);
         }
         ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Používateľské meno</label>
-                <input type="text" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" id="username" name="username" value="<?php echo $username; ?>">
+                <input type="text" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" id="username" name="username" value="<?php echo htmlspecialchars($username); ?>" required>
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Heslo</label>
-                <input type="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" id="password" name="password">
+                <input type="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" id="password" name="password" required>
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
 
@@ -143,6 +160,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
