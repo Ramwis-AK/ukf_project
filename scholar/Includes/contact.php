@@ -22,7 +22,7 @@
                         <span class="offer">zľava<br><em>20%</em></span>
                         <h6>Len do: <em>24 apríl 2036</em></h6>
                         <h4>Špeciálna Zľava <em>20%</em> </h4>
-                        <a href="off_pdf.php" target="_blank" rel="noopener noreferrer">
+                        <a href="dokumenty/off_pdf.pdf" target="_blank" rel="noopener noreferrer">
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </div>
@@ -67,6 +67,6 @@
  */
 function get_form_action() {
     // Môžeš to neskôr konfigurovať cez nastavenia alebo env premennú
-    return "process-contact.php";
+    return "index.php";
 }
 ?>
