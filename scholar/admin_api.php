@@ -336,8 +336,17 @@ try {
                     break;
                 }
 
-                $result = $db->delete("DELETE FROM users WHERE user_ID = ?", [$userId]);
-                echo json_encode($result ? ['success' => 'Používateľ zmazaný'] : ['error' => 'Chyba pri mazaní']);
+                $deletedRows = $db->delete("DELETE FROM users WHERE user_ID = ?", [$userId]);
+
+                if ($deletedRows === false) {
+                    echo json_encode(['error' => 'Chyba pri mazaní používateľa']);
+                } elseif ($deletedRows === 0) {
+                    echo json_encode(['error' => 'Používateľ nebol nájdený']);
+                } else {
+                    echo json_encode(['success' => 'Používateľ bol úspešne zmazaný']);
+                }
+            } else {
+                echo json_encode(['error' => 'Nepovolená metoda']);
             }
             break;
 

@@ -479,16 +479,65 @@ $pageTitle = "Admin Panel - Scholar";
         console.log('Loading courses...');
     }
 
+    // Nahraď existujúce funkcie editUser a deleteUser týmto kódom:
     function editUser(userId) {
-        console.log('Edit user:', userId);
+        // Získaj aktuálne údaje používateľa z tabuľky
+        const row = event.target.closest('tr');
+        const cells = row.cells;
+
+        const username = prompt('Nové používateľské meno:', cells[1].textContent);
+        const email = prompt('Nový email:', cells[2].textContent);
+        const role = prompt('Nová rola (admin/user):', cells[3].querySelector('.badge').textContent);
+
+        if (username && email && role) {
+            const formData = new FormData();
+            formData.append('user_id', userId);
+            formData.append('username', username);
+            formData.append('email', email);
+            formData.append('role', role);
+
+            fetch('admin_api.php?action=update_user', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Používateľ bol aktualizovaný');
+                        loadUsers(); // Obnoví tabuľku
+                    } else {
+                        alert('Chyba: ' + (data.error || 'Neznáma chyba'));
+                    }
+                })
+                .catch(error => {
+                    alert('Chyba pri komunikácii so serverom');
+                });
+        }
     }
 
     function deleteUser(userId) {
         if (confirm('Naozaj chcete zmazať tohto používateľa?')) {
-            console.log('Delete user:', userId);
+            const formData = new FormData();
+            formData.append('user_id', userId);
+
+            fetch('admin_api.php?action=delete_user', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Používateľ bol zmazaný');
+                        loadUsers(); // Obnoví tabuľku
+                    } else {
+                        alert('Chyba: ' + (data.error || 'Neznáma chyba'));
+                    }
+                })
+                .catch(error => {
+                    alert('Chyba pri komunikácii so serverom');
+                });
         }
     }
-
     // Logout functionality
     document.getElementById('logoutBtn').addEventListener('click', () => {
         fetch('admin_api.php?action=logout')
