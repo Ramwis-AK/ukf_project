@@ -21,7 +21,7 @@ class TestimonialsSection
                                 <div class="item">
                                     <p><?php echo htmlspecialchars($testimonial['quote']); ?></p>
                                     <div class="author">
-                                        <img src="<?php echo htmlspecialchars($testimonial['image']); ?>" alt="<?php echo htmlspecialchars($testimonial['name']); ?>">
+                                        <img src="<?php echo htmlspecialchars($testimonial['image']); ?>">
                                         <span class="category"><?php echo htmlspecialchars($testimonial['category']); ?></span>
                                         <h4><?php echo htmlspecialchars($testimonial['name']); ?></h4>
                                     </div>
