@@ -18,6 +18,18 @@ class Helpers {
         return $this->db->select("SELECT * FROM facts");
     }
 
+    public function updateFact(int $id, int $number, string $speed, string $text): bool {
+        $id = Database::sanitizeInput($id);
+        $number = Database::sanitizeInput($number);
+        $speed = Database::sanitizeInput($speed);
+        $text = Database::sanitizeInput($text);
+
+        return $this->db->update(
+            "UPDATE facts SET title = ?, description = ? WHERE id = ?",
+            [$number, $speed, $text, $id]
+        );
+    }
+
     public function getTeamMembers(): array {
         return $this->db->select("SELECT * FROM team");
     }
