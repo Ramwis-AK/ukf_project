@@ -43,6 +43,8 @@ class TestimonialsSection
     }
 }
 
-// Použitie
 $helpers = new Helpers();
 $testimonials = $helpers->getTestimonials();
+
+$section = new TestimonialsSection($testimonials);
+$section->render(); // <-- NAJHLAVNEJŠIE!
