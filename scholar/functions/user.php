@@ -1,45 +1,64 @@
 <?php
 
 require_once __DIR__ . '/../config/db_config.php';
+// Načítanie konfigurácie databázy a triedy Database
 
 class User
 {
     private Database $db;
+    // Privátna premenná pre inštanciu databázy
 
     public function __construct()
     {
         $this->db = Database::getInstance();
+        // V konštruktore získavame singleton inštanciu databázy
     }
 
     public function sanitizeInput(string $input): string
     {
+        // Očistenie vstupu pomocou metódy z triedy Database (napr. escapovanie špeciálnych znakov)
         return Database::sanitizeInput($input);
     }
 
     public function findByUsername(string $username): ?array
     {
-        $result = $this->db->select("SELECT user_ID, username, password, role FROM users WHERE username = ?", [$username]);
+        // Hľadá používateľa podľa užívateľského mena v databáze
+        // Používame pripravený SQL dotaz s parametrom pre bezpečnosť (prepared statement)
+        $result = $this->db->select(
+            "SELECT user_ID, username, password, role FROM users WHERE username = ?",
+            [$username]
+        );
+        // Ak používateľ existuje, vráti jeho údaje (prvý záznam), inak null
         return $result[0] ?? null;
     }
 
     public function verifyPassword(string $password, string $hash): bool
     {
+        // Overí heslo zadané používateľom voči zahashovanému heslu v databáze
+        // Používa metódu z triedy Database (pravdepodobne password_verify)
         return Database::verifyPassword($password, $hash);
     }
 
     public function login(string $username, string $password): bool
     {
+        // Prihlási používateľa s daným menom a heslom
+
+        // Najprv očistí používateľské meno od nebezpečných znakov
         $username = $this->sanitizeInput($username);
+
+        // Nájdi používateľa podľa mena
         $user = $this->findByUsername($username);
 
+        // Ak používateľ existuje a heslo súhlasí s hashom v DB
         if ($user && $this->verifyPassword($password, $user['password'])) {
-            // Nastav session
+            // Nastaví potrebné údaje do session pre prihlásenie
             $_SESSION["loggedin"] = true;
             $_SESSION["user_id"] = $user['user_ID'];
             $_SESSION["username"] = $user['username'];
             $_SESSION["role"] = $user['role'];
-            return true;
+            return true; // úspešné prihlásenie
         }
-        return false;
+
+        return false; // neúspešné prihlásenie (nesprávne meno alebo heslo)
     }
 }

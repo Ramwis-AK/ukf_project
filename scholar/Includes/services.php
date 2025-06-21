@@ -1,7 +1,9 @@
 <?php
 
+// Trieda Services reprezentuje sekciu "Služby" s ikonami, názvami a popismi
 class Services
 {
+    // Pole s jednotlivými službami – každá má ikonku, titulok a popis
     private array $serviceItems = [
         [
             'icon' => 'assets/images/service-01.png',
@@ -20,22 +22,27 @@ class Services
         ]
     ];
 
+    // Metóda na výpis HTML kódu pre sekciu služieb
     public function render(): void
     {
         ?>
-        <!-- Services Section -->
+        <!-- Sekcia: Naše služby -->
         <div class="services section" id="services">
             <div class="container">
                 <div class="row">
 
+                    <!-- Pre každý prvok zo zoznamu služieb vytvorí jeden box -->
                     <?php foreach ($this->serviceItems as $service) : ?>
                         <div class="col-lg-4 col-md-6">
                             <div class="service-item">
                                 <div class="icon">
+                                    <!-- Ikonka služby -->
                                     <img src="<?php echo htmlspecialchars($service['icon']); ?>" alt="<?php echo htmlspecialchars($service['title']); ?>">
                                 </div>
                                 <div class="main-content">
+                                    <!-- Názov služby -->
                                     <h4><?php echo htmlspecialchars($service['title']); ?></h4>
+                                    <!-- Popis služby -->
                                     <p><?php echo htmlspecialchars($service['description']); ?></p>
                                 </div>
                             </div>
@@ -49,6 +56,6 @@ class Services
     }
 }
 
-// Použitie:
+// Použitie komponentu v rámci PHP stránky – zavolá výpis služieb
 $services = new Services();
 $services->render();

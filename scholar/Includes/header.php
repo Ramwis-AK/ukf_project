@@ -1,7 +1,9 @@
 <?php
 
+// Trieda Header zodpovedá za zobrazenie vrchnej časti webu (navigácia + logo + login info)
 class Header
 {
+    // Definícia položiek navigácie s aktívnou triedou pre aktuálnu sekciu
     private array $navItems = [
         ['url' => '#top', 'text' => 'Domov', 'active' => true],
         ['url' => '#services', 'text' => 'O nás', 'active' => false],
@@ -13,9 +15,11 @@ class Header
 
     public function __construct()
     {
+        // Pri vytvorení inštancie zabezpečí, že session je spustená
         $this->startSession();
     }
 
+    // Ak session ešte nebeží, spustí ju (ochrana proti duplicitnému štartu)
     private function startSession(): void
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -23,16 +27,19 @@ class Header
         }
     }
 
+    // Kontrola, či je používateľ prihlásený (existuje session premenná 'user_id')
     private function isLoggedIn(): bool
     {
         return isset($_SESSION['user_id']);
     }
 
+    // Vráti meno používateľa zo session, alebo prázdny reťazec, ak nie je prihlásený
     private function getUsername(): string
     {
         return $this->isLoggedIn() ? $_SESSION['username'] : '';
     }
 
+    // Hlavná metóda: generuje HTML kód pre hlavičku vrátane navigácie a login stavu
     public function render(): void
     {
         ?>
@@ -44,18 +51,20 @@ class Header
                         <nav class="main-nav">
                             <!-- Logo Start -->
                             <a href="index.php" class="logo">
-                                <h1>Gorm</h1>
+                                <h1>Gorm</h1> <!-- Názov alebo logo stránky -->
                             </a>
                             <!-- Logo End -->
 
                             <!-- Auth Area Start -->
                             <div class="auth-area">
                                 <?php if ($this->isLoggedIn()) : ?>
+                                    <!-- Ak je používateľ prihlásený, zobrazí jeho meno a odhlasovacie tlačidlo -->
                                     <div class="logged-in-user">
                                         <span>Vitaj, <?php echo htmlspecialchars($this->getUsername(), ENT_QUOTES, 'UTF-8'); ?></span>
                                         <a href="/ukf_project/scholar/includes/logout.php" class="logout-btn">Odhlásiť sa</a>
                                     </div>
                                 <?php else : ?>
+                                    <!-- Ak nie je prihlásený, ponúkne možnosť prihlásiť/registrovať -->
                                     <div class="login-register">
                                         <a href="Includes/login.php" class="login-btn">Prihlásiť sa  Registrovať</a>
                                     </div>
@@ -74,6 +83,7 @@ class Header
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
+                            <!-- Mobilné menu toggle button -->
                             <a class="menu-trigger">
                                 <span>Menu</span>
                             </a>
@@ -87,6 +97,6 @@ class Header
     }
 }
 
-// Použitie:
+// Použitie: vytvorí sa inštancia a zavolá sa metóda render() na výpis hlavičky stránky
 $header = new Header();
 $header->render();

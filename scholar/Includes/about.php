@@ -1,7 +1,9 @@
 <?php
 
+// Komponent pre sekciu "O nás" – obsahuje accordion s otázkami a opis firmy
 class About
 {
+    // Položky akordeónu: otázka, odpoveď, či má byť otvorená ako prvá
     private array $accordionItems = [
         [
             'id' => '1',
@@ -29,17 +31,20 @@ class About
         ],
     ];
 
+    // Metóda na vykreslenie sekcie "O nás" s Bootstrap accordionom
     public function render(): void
     {
         ?>
-        <!-- About Us Section -->
+        <!-- Sekcia: O nás -->
         <div class="section about-us">
             <div class="container">
                 <div class="row">
+                    <!-- Ľavý stĺpec: Accordion s otázkami -->
                     <div class="col-lg-6 offset-lg-1">
                         <div class="accordion" id="accordionExample">
                             <?php foreach ($this->accordionItems as $item): ?>
                                 <div class="accordion-item">
+                                    <!-- Nadpis akordeónu (otázka) -->
                                     <h2 class="accordion-header" id="heading<?php echo htmlspecialchars($item['id']); ?>">
                                         <button class="accordion-button <?php echo $item['show'] ? '' : 'collapsed'; ?>"
                                                 type="button"
@@ -50,18 +55,22 @@ class About
                                             <?php echo htmlspecialchars($item['title']); ?>
                                         </button>
                                     </h2>
+
+                                    <!-- Telo akordeónu (odpoveď) -->
                                     <div id="collapse<?php echo htmlspecialchars($item['id']); ?>"
                                          class="accordion-collapse collapse <?php echo $item['show'] ? 'show' : ''; ?>"
                                          aria-labelledby="heading<?php echo htmlspecialchars($item['id']); ?>"
                                          data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            <?php echo $item['content']; // obsah môže byť HTML ?>
+                                            <?php echo $item['content']; // tu môže byť aj HTML, preto bez htmlspecialchars ?>
                                         </div>
                                     </div>
                                 </div>
                             <?php endforeach; ?>
                         </div>
                     </div>
+
+                    <!-- Pravý stĺpec: úvodné informácie o firme -->
                     <div class="col-lg-5 align-self-center">
                         <div class="section-heading">
                             <h6>O nás</h6>
@@ -75,6 +84,7 @@ class About
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -82,6 +92,6 @@ class About
     }
 }
 
-// Použitie:
+// Použitie komponentu v aplikácii
 $about = new About();
 $about->render();

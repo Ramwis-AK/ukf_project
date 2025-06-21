@@ -1,21 +1,27 @@
 <?php
+// Načítame pomocné funkcie z externého súboru
 require_once __DIR__ . '/../functions/helpers.php';
+
 class Courses
 {
+    // Premenné uchovávajúce kategórie kurzov a samotné kurzy
     private array $courseCategories;
     private array $courseItems;
 
+    // Konstruktor triedy, ktorý očakáva dve polia - kategórie kurzov a kurzy samotné
     public function __construct(array $courseCategories, array $courseItems)
     {
         $this->courseCategories = $courseCategories;
         $this->courseItems = $courseItems;
     }
 
+    // Pomocná metóda na úpravu tried CSS pre filtrovanie kurzov - odstráni bodku z filtra
     private function getCourseClasses(string $filter): string
     {
         return ltrim($filter, '.');
     }
 
+    // Hlavná metóda pre vykreslenie sekcie kurzov v HTML
     public function render(): void
     {
         ?>
@@ -30,7 +36,7 @@ class Courses
                     </div>
                 </div>
 
-                <!-- Course Filters -->
+                <!-- Filter kategórií kurzov -->
                 <ul class="event_filter">
                     <?php foreach ($this->courseCategories as $category) : ?>
                         <li>
@@ -41,7 +47,7 @@ class Courses
                     <?php endforeach; ?>
                 </ul>
 
-                <!-- Course Items -->
+                <!-- Zoznam kurzov -->
                 <div class="row event_box">
                     <?php foreach ($this->courseItems as $course) : ?>
                         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer <?php echo $this->getCourseClasses($course['filter']); ?>">
@@ -63,9 +69,15 @@ class Courses
     }
 }
 
+// Vytvoríme inštanciu pomocnej triedy na získanie dát
 $helpers = new Helpers();
+
+// Získame kategórie kurzov
 $courseCategories = $helpers->getCourseCategories();
+
+// Získame jednotlivé kurzy
 $courseItems = $helpers->getCourses();
 
+// Vytvoríme objekt triedy Courses s dátami a vykreslíme obsah
 $courses = new Courses($courseCategories, $courseItems);
 $courses->render();
