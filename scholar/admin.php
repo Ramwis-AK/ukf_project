@@ -1,19 +1,27 @@
 <?php
 // Admin panel - admin.php
+
+// Definuje konštantu pre kontrolu oprávneného prístupu do databázy
 define('DB_ACCESS_ALLOWED', true);
+
+// Spustí PHP session pre prácu s prihlásením používateľa
 session_start();
 
-// Include potrebné súbory
-require_once 'config/db_config.php';
-require_once 'functions/helpers.php';
+// Načítanie konfiguračných a pomocných súborov
+require_once 'config/db_config.php';         // Konfigurácia databázy
+require_once 'functions/helpers.php';        // Pomocné funkcie ako login, rola, atď.
 
-// Skontroluj, či je používateľ prihlásený a je admin
+// Overenie, či je používateľ prihlásený a či má administrátorské oprávnenia
+// Ak nie, presmeruje ho na prihlasovaciu stránku
 if (!Helpers::isLoggedIn() || !Helpers::isAdmin()) {
     header("Location: includes/login.php");
-    exit;
+    exit; // Ukončí skript, aby sa nedostalo k zvyšku kódu
 }
 
+// Získa údaje aktuálne prihláseného používateľa (napr. meno, ID)
 $currentUser = Helpers::getCurrentUser();
+
+// Nastaví názov stránky pre zobrazovanie v <title>
 $pageTitle = "Admin Panel - Scholar";
 ?>
 
@@ -24,9 +32,12 @@ $pageTitle = "Admin Panel - Scholar";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS pre responzívny dizajn a základné štýly -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome ikony -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
+
 
     <style>
         :root {
@@ -186,26 +197,33 @@ $pageTitle = "Admin Panel - Scholar";
     </style>
 </head>
 <body>
-<!-- Navigation -->
+
+<!-- Hlavná navigácia v hornej časti stránky -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
+        <!-- Názov admin panelu s ikonou -->
         <a class="navbar-brand" href="#">
             <i class="fas fa-graduation-cap me-2"></i>
             Scholar Admin
         </a>
+
+        <!-- Tlačidlo na odhlásenie (funkčné cez JS alebo priamy link) -->
         <button id="logoutBtn" class="btn btn-outline-light">Odhlásiť sa</button>
 
+        <!-- Sekcia napravo s menom prihláseného používateľa a dropdown menu -->
         <div class="navbar-nav ms-auto">
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                     <i class="fas fa-user me-1"></i>
-                    <?php echo htmlspecialchars($currentUser['username']); ?>
+                    <?php echo htmlspecialchars($currentUser['username']); ?> <!-- Bezpečné zobrazenie mena -->
                 </a>
                 <ul class="dropdown-menu">
+                    <!-- Odkaz späť na hlavnú stránku -->
                     <li><a class="dropdown-item" href="index.php">
                             <i class="fas fa-home me-2"></i>Domovská stránka
                         </a></li>
                     <li><hr class="dropdown-divider"></li>
+                    <!-- Odkaz na odhlásenie -->
                     <li><a class="dropdown-item" href="includes/logout.php">
                             <i class="fas fa-sign-out-alt me-2"></i>Odhlásiť sa
                         </a></li>
@@ -217,9 +235,11 @@ $pageTitle = "Admin Panel - Scholar";
 
 <div class="container-fluid">
     <div class="row">
-        <!-- Sidebar -->
+
+        <!-- Bočný panel s navigáciou medzi sekciami admin rozhrania -->
         <div class="col-md-3 col-lg-2 sidebar">
             <nav class="nav flex-column">
+                <!-- Každý odkaz má atribút `data-section` na prepínanie viditeľného obsahu -->
                 <a class="nav-link active" href="#dashboard" data-section="dashboard">
                     <i class="fas fa-tachometer-alt me-2"></i>
                     Dashboard
@@ -243,16 +263,16 @@ $pageTitle = "Admin Panel - Scholar";
             </nav>
         </div>
 
-        <!-- Main Content -->
+        <!-- Hlavná obsahová časť (pravá strana) -->
         <div class="col-md-9 col-lg-10 main-content">
-            <!-- Dashboard Section -->
+
+            <!-- Sekcia dashboardu -->
             <div id="dashboard-section" class="content-section">
                 <div class="welcome-banner">
                     <h1>Vitajte v Admin Paneli</h1>
-                    <p class="mb-0">Prehľad a správa vašej online školy</p>
                 </div>
 
-                <!-- Quick Actions -->
+                <!-- Rýchle akcie ako pridanie používateľa, kurzu, atď. -->
                 <div class="quick-actions">
                     <a href="#" class="quick-action-btn" data-section="users">
                         <i class="fas fa-user-plus fa-2x mb-2"></i><br>
@@ -272,7 +292,7 @@ $pageTitle = "Admin Panel - Scholar";
                     </a>
                 </div>
 
-                <!-- Statistics Cards -->
+                <!-- Prehľadové karty so štatistikami -->
                 <div class="row">
                     <div class="col-md-3 mb-4">
                         <div class="card stats-card">
@@ -301,7 +321,7 @@ $pageTitle = "Admin Panel - Scholar";
                 </div>
             </div>
 
-            <!-- Users Section -->
+            <!-- Sekcia pre správu používateľov -->
             <div id="users-section" class="content-section" style="display: none;">
                 <div class="card">
                     <div class="card-header">
@@ -320,7 +340,7 @@ $pageTitle = "Admin Panel - Scholar";
                                 </tr>
                                 </thead>
                                 <tbody id="users-table-body">
-                                <!-- Dynamicky načítané -->
+                                <!-- Tu sa dynamicky cez JS načítajú dáta používateľov -->
                                 </tbody>
                             </table>
                         </div>
@@ -328,7 +348,7 @@ $pageTitle = "Admin Panel - Scholar";
                 </div>
             </div>
 
-            <!-- Courses Section -->
+            <!-- Sekcia pre správu kurzov -->
             <div id="courses-section" class="content-section" style="display: none;">
                 <div class="card">
                     <div class="card-header">
@@ -340,7 +360,7 @@ $pageTitle = "Admin Panel - Scholar";
                 </div>
             </div>
 
-            <!-- Content Section -->
+            <!-- Sekcia pre správu obsahu stránky -->
             <div id="content-section" class="content-section" style="display: none;">
                 <div class="card">
                     <div class="card-header">
@@ -352,7 +372,7 @@ $pageTitle = "Admin Panel - Scholar";
                 </div>
             </div>
 
-            <!-- Settings Section -->
+            <!-- Sekcia pre nastavenia systému -->
             <div id="settings-section" class="content-section" style="display: none;">
                 <div class="card">
                     <div class="card-header">
@@ -363,63 +383,70 @@ $pageTitle = "Admin Panel - Scholar";
                     </div>
                 </div>
             </div>
-        </div>
+
+        </div> <!-- Koniec hlavného obsahu -->
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<!-- Načítanie potrebných JavaScript knižníc (jQuery a Bootstrap) -->
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 
+
 <script>
-    // Navigation handling
+    // Po načítaní DOMu sa inicializuje navigácia a základné dáta
     document.addEventListener('DOMContentLoaded', function() {
+        // Výber všetkých navigačných prvkov a sekcií obsahu
         const navLinks = document.querySelectorAll('.nav-link, .quick-action-btn');
         const contentSections = document.querySelectorAll('.content-section');
 
+        // Každému odkazu sa priradí klik handler
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault();
+                e.preventDefault(); // Zamedzí predvolenému správaniu odkazu
 
                 const targetSection = this.getAttribute('data-section');
                 if (!targetSection) return;
 
-                // Update active nav link
+                // Odstráni triedu 'active' zo všetkých odkazov navigácie
                 document.querySelectorAll('.nav-link').forEach(nl => nl.classList.remove('active'));
+                // Označí aktuálny (kliknutý) odkaz ako aktívny
                 document.querySelectorAll(`.nav-link[data-section="${targetSection}"]`).forEach(nl => nl.classList.add('active'));
 
-                // Show target section
+                // Skryje všetky sekcie
                 contentSections.forEach(section => {
                     section.style.display = 'none';
                 });
 
+                // Zobrazí len tú sekciu, ktorá bola vybraná
                 const targetElement = document.getElementById(targetSection + '-section');
                 if (targetElement) {
                     targetElement.style.display = 'block';
 
-                    // Load section data
+                    // Načíta dáta pre konkrétnu sekciu
                     loadSectionData(targetSection);
                 }
             });
         });
 
-        // Load initial data
+        // Načíta úvodné štatistiky pre dashboard
         loadDashboardStats();
     });
 
-    // Load dashboard statistics
+    // Načíta štatistiky pre dashboard (napr. počet používateľov, kurzov, atď.)
     function loadDashboardStats() {
         fetch('admin_api.php?action=get_stats')
             .then(response => response.json())
             .then(data => {
+                // Aktualizuje UI s údajmi alebo nastaví na '0' ak chýbajú
                 document.getElementById('users-count').textContent = data.users || '0';
                 document.getElementById('courses-count').textContent = data.courses || '0';
                 document.getElementById('team-count').textContent = data.team || '0';
                 document.getElementById('testimonials-count').textContent = data.testimonials || '0';
             })
             .catch(error => {
-                console.log('Stats not available yet');
-                // Set default values
+                console.log('Stats not available yet'); // Fallback ak API zlyhá
+                // Nastavenie predvolených hodnôt
                 document.getElementById('users-count').textContent = '1';
                 document.getElementById('courses-count').textContent = '0';
                 document.getElementById('team-count').textContent = '0';
@@ -427,7 +454,7 @@ $pageTitle = "Admin Panel - Scholar";
             });
     }
 
-    // Load section specific data
+    // Na základe vybranej sekcie zavolá funkciu pre načítanie dát
     function loadSectionData(section) {
         switch(section) {
             case 'users':
@@ -436,19 +463,20 @@ $pageTitle = "Admin Panel - Scholar";
             case 'courses':
                 loadCourses();
                 break;
-            // Add more cases as needed
+            // Môžeš pridať ďalšie sekcie sem
         }
     }
 
-    // Load users data
+    // Získa zoznam používateľov z API a zobrazí ich v tabuľke
     function loadUsers() {
         fetch('admin_api.php?action=get_users')
             .then(response => response.json())
             .then(data => {
                 const tbody = document.getElementById('users-table-body');
-                tbody.innerHTML = '';
+                tbody.innerHTML = ''; // Vymaže predošlé riadky
 
                 data.forEach(user => {
+                    // Pre každého používateľa sa vytvorí nový riadok
                     const row = document.createElement('tr');
                     row.innerHTML = `
                             <td>${user.user_ID}</td>
@@ -464,38 +492,41 @@ $pageTitle = "Admin Panel - Scholar";
                                 </button>
                             </td>
                         `;
-                    tbody.appendChild(row);
+                    tbody.appendChild(row); // Pridá riadok do tabuľky
                 });
             })
             .catch(error => {
                 console.log('Users data not available yet');
+                // Fallback výpis ak sa nepodarí načítať dáta
                 document.getElementById('users-table-body').innerHTML =
                     '<tr><td colspan="5" class="text-center">Údaje o používateľoch nie sú k dispozícii</td></tr>';
             });
     }
 
-    // Placeholder functions
+    // Placeholder pre načítanie kurzov (momentálne len loguje)
     function loadCourses() {
         console.log('Loading courses...');
     }
 
-    // Nahraď existujúce funkcie editUser a deleteUser týmto kódom:
+    // Funkcia na úpravu údajov o používateľovi (používa prompt)
     function editUser(userId) {
-        // Získaj aktuálne údaje používateľa z tabuľky
         const row = event.target.closest('tr');
         const cells = row.cells;
 
+        // Vyžiada si nové údaje cez prompt
         const username = prompt('Nové používateľské meno:', cells[1].textContent);
         const email = prompt('Nový email:', cells[2].textContent);
         const role = prompt('Nová rola (admin/user):', cells[3].querySelector('.badge').textContent);
 
         if (username && email && role) {
+            // Príprava údajov na odoslanie
             const formData = new FormData();
             formData.append('user_id', userId);
             formData.append('username', username);
             formData.append('email', email);
             formData.append('role', role);
 
+            // Odoslanie požiadavky na aktualizáciu používateľa
             fetch('admin_api.php?action=update_user', {
                 method: 'POST',
                 body: formData
@@ -504,7 +535,7 @@ $pageTitle = "Admin Panel - Scholar";
                 .then(data => {
                     if (data.success) {
                         alert('Používateľ bol aktualizovaný');
-                        loadUsers(); // Obnoví tabuľku
+                        loadUsers(); // Refresh tabuľky
                     } else {
                         alert('Chyba: ' + (data.error || 'Neznáma chyba'));
                     }
@@ -515,6 +546,7 @@ $pageTitle = "Admin Panel - Scholar";
         }
     }
 
+    // Funkcia na vymazanie používateľa
     function deleteUser(userId) {
         if (confirm('Naozaj chcete zmazať tohto používateľa?')) {
             const formData = new FormData();
@@ -528,7 +560,7 @@ $pageTitle = "Admin Panel - Scholar";
                 .then(data => {
                     if (data.success) {
                         alert('Používateľ bol zmazaný');
-                        loadUsers(); // Obnoví tabuľku
+                        loadUsers(); // Aktualizácia tabuľky
                     } else {
                         alert('Chyba: ' + (data.error || 'Neznáma chyba'));
                     }
@@ -538,12 +570,14 @@ $pageTitle = "Admin Panel - Scholar";
                 });
         }
     }
-    // Logout functionality
+
+    // Odhlásenie používateľa
     document.getElementById('logoutBtn').addEventListener('click', () => {
         fetch('admin_api.php?action=logout')
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
+                    // Presmerovanie na login stránku
                     window.location.href = '/ukf_project/scholar/index.php';
                 } else {
                     alert('Chyba pri odhlasovaní');
@@ -552,5 +586,3 @@ $pageTitle = "Admin Panel - Scholar";
             .catch(() => alert('Chyba pri odhlasovaní'));
     });
 </script>
-</body>
-</html>
