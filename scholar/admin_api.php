@@ -1,19 +1,19 @@
 <?php
 // Admin API - admin_api.php
-define('DB_ACCESS_ALLOWED', true); // Povolenie na použitie databázy (pravdepodobne kontrola v súbore db_config.php)
+define('DB_ACCESS_ALLOWED', true); // Povolenie na použitie databázy
 session_start(); // Spustenie session pre autentifikáciu používateľa
 
 // Načítanie konfiguračných a pomocných funkcií
 require_once 'config/db_config.php';
 require_once 'functions/helpers.php';
 
-// Načítanie akcie z query stringu (?action=...) alebo prázdny reťazec
+// Načítanie akcie z query stringu
 $action = $_GET['action'] ?? '';
 
 // Kontrola, či je používateľ prihlásený ako admin (okrem akcie 'logout')
 if ($action !== 'logout' && (!Helpers::isLoggedIn() || !Helpers::isAdmin())) {
     http_response_code(403); // Vráti HTTP 403 Forbidden
-    echo json_encode(['error' => 'Unauthorized']); // Chybové hlásenie
+    echo json_encode(['error' => 'Unauthorized']);
     exit;
 }
 
@@ -92,9 +92,9 @@ try {
             }
             break;
 
-        // ---------- KURZY ----------
+        // ---------- event ----------
 
-        // Získanie všetkých kurzov
+        // Získanie všetkých eventov
         case 'get_courses':
             $courses = $db->select("SELECT * FROM courses ORDER BY id DESC");
             echo json_encode($courses ?: []);
@@ -131,7 +131,7 @@ try {
                     [$image, $author, $title, $category_id, $id]
                 );
 
-                echo json_encode($result !== false ? ['success' => 'Kurz aktualizovaný'] : ['error' => 'Chyba pri aktualizácii']);
+                echo json_encode($result !== false ? ['success' => 'Event aktualizovaný'] : ['error' => 'Chyba pri aktualizácii']);
             }
             break;
 
@@ -204,7 +204,7 @@ try {
             break;
 
         case 'add_team':
-            // Pridanie nového člena tímu (iba cez POST)
+            // Pridanie nového člena tímu
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Získa a očistí vstupné údaje
                 $image = Database::sanitizeInput($_POST['image'] ?? '');
@@ -419,9 +419,9 @@ try {
             }
             break;
         case 'add_user':
-            // Kontrolujeme, či bola požiadavka odoslaná cez POST metódu (bezpečnejšie pre dáta)
+            // Kontrolujeme, či bola požiadavka odoslaná cez POST metódu
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Načítame vstupné dáta z formulára, použijeme sanitáciu na ochranu proti útokom (napr. SQL Injection)
+                // Načítame vstupné dáta z formulára, použijeme sanitáciu na ochranu proti útokom
                 $username = Database::sanitizeInput($_POST['username'] ?? '');
                 $email = Database::sanitizeInput($_POST['email'] ?? '');
                 $password = $_POST['password'] ?? '';  // Heslo nesanitujeme, môže obsahovať špeciálne znaky
