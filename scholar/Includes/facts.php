@@ -1,8 +1,8 @@
 <?php
+
 require_once __DIR__ . '/../functions/helpers.php';
 
-class FunFacts
-{
+class FunFacts {
     // Uchovávanie položiek faktov
     private array $factsItems;
 
@@ -28,9 +28,10 @@ class FunFacts
                                 foreach ($this->factsItems as $fact) : ?>
                                     <div class="col-lg-3 col-md-6">
                                         <div class="counter <?php echo htmlspecialchars($fact['class']); ?>">
-                                            <h2 class="timer count-title count-number"<!--H2 obsahuje animované číslo-->
-                                                data-to="<?php echo htmlspecialchars($fact['number']); ?>"<!--cieľová hodnota animácie-->
-                                                data-speed="<?php echo htmlspecialchars($fact['speed']); ?>"><!--rýchlosť animácie v ms-->
+                                            <!-- H2 obsahuje animované číslo -->
+                                            <h2 class="timer count-title count-number"
+                                                data-to="<?php echo htmlspecialchars($fact['number']); ?>"
+                                                data-speed="<?php echo htmlspecialchars($fact['speed']); ?>">
                                             </h2>
                                             <!-- Textový popis faktu -->
                                             <p class="count-text"><?php echo htmlspecialchars($fact['text']); ?></p>
@@ -46,6 +47,7 @@ class FunFacts
         <?php
     }
 }
+
 $helpers = new Helpers();
 $factsItems = $helpers->getFacts();
 

@@ -1,7 +1,37 @@
 <?php
-/**
- * Contact section template
- */
+
+require_once __DIR__ . '/../config/db_config.php';  // cesta podľa projektu uprav
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Získanie a očistenie vstupov
+    $name = Database::sanitizeInput($_POST['name'] ?? '');
+    $email = Database::sanitizeInput($_POST['email'] ?? '');
+    $message = Database::sanitizeInput($_POST['message'] ?? '');
+
+    // Validácia
+    if ($name && $email && $message && Database::validateEmail($email)) {
+        $db = Database::getInstance();
+
+        $insertQuery = "INSERT INTO contacts (name, email, message) VALUES (:name, :email, :message)";
+        $params = [
+            ':name' => $name,
+            ':email' => $email,
+            ':message' => $message
+        ];
+
+        $insertedId = $db->insert($insertQuery, $params);
+
+        if ($insertedId !== false) {
+            $successMessage = "Správa bola úspešne odoslaná. Ďakujeme!";
+        } else {
+            $errorMessage = "Nastala chyba pri odosielaní správy. Skúste to prosím neskôr.";
+        }
+    } else {
+        $errorMessage = "Prosím, vyplňte všetky polia správne.";
+    }
+}
+
+
 ?>
 
 <!-- Sekcia kontaktu -->
@@ -66,6 +96,40 @@
         </div>
     </div>
 </div>
+<div id="popup-modal" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; max-width: 400px; border-radius: 8px; box-shadow: 0 0 10px #000; text-align: center;">
+        <p id="popup-message" style="margin-bottom: 20px;"></p>
+        <button id="popup-close" style="padding: 10px 20px; cursor:pointer;">OK</button>
+    </div>
+</div>
+<?php if (!empty($successMessage) || !empty($errorMessage)): ?>
+    <script>
+        var messageType = "<?php echo !empty($successMessage) ? 'success' : 'error'; ?>";
+        var messageText = "<?php echo !empty($successMessage) ? addslashes($successMessage) : addslashes($errorMessage); ?>";
+    </script>
+<?php endif; ?>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof messageText !== 'undefined' && messageText) {
+            const modal = document.getElementById('popup-modal');
+            const messageEl = document.getElementById('popup-message');
+            const closeBtn = document.getElementById('popup-close');
+
+            messageEl.textContent = messageText;
+            if(messageType === 'success') {
+                messageEl.style.color = 'green';
+            } else {
+                messageEl.style.color = 'red';
+            }
+            modal.style.display = 'flex';
+
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+    });
+</script>
 
 <?php
 function get_form_action() {
