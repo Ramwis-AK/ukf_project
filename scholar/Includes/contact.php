@@ -131,6 +131,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
 </script>
 
+
+<?php if (!empty($successMessage) || !empty($errorMessage)): ?>
+    <script>
+        window.addEventListener('load', function() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+    </script>
+<?php endif; ?>
+
+
 <?php
 function get_form_action() {
     return "index.php"; // vráti na index.php
