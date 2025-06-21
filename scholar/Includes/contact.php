@@ -2,37 +2,86 @@
 
 require_once __DIR__ . '/../config/db_config.php';  // cesta podľa projektu uprav
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Získanie a očistenie vstupov
-    $name = Database::sanitizeInput($_POST['name'] ?? '');
-    $email = Database::sanitizeInput($_POST['email'] ?? '');
-    $message = Database::sanitizeInput($_POST['message'] ?? '');
+class ContactFormHandler
+{
+    private $db;
+    public $errors = [];
+    public $successMessage = '';
+    public $errorMessage = '';
 
-    // Validácia
-    if ($name && $email && $message && Database::validateEmail($email)) {
-        $db = Database::getInstance();
+    public function __construct()
+    {
+        $this->db = Database::getInstance();
+    }
 
-        $insertQuery = "INSERT INTO contacts (name, email, message) VALUES (:name, :email, :message)";
-        $params = [
-            ':name' => $name,
-            ':email' => $email,
-            ':message' => $message
-        ];
+    // Sanitácia vstupov
+    private function sanitizeInput(string $input): string
+    {
+        return Database::sanitizeInput($input);
+    }
 
-        $insertedId = $db->insert($insertQuery, $params);
+    // Validácia vstupov
+    private function validate(string $name, string $email, string $message): bool
+    {
+        $this->errors = [];
 
-        if ($insertedId !== false) {
-            $successMessage = "Správa bola úspešne odoslaná. Ďakujeme!";
-        } else {
-            $errorMessage = "Nastala chyba pri odosielaní správy. Skúste to prosím neskôr.";
+        if (strlen($name) < 2 || !preg_match('/^[a-zA-Zá-žÁ-Ž\s]+$/u', $name)) {
+            $this->errors[] = "Meno musí obsahovať aspoň 2 písmená a iba písmená a medzery.";
         }
-    } else {
-        $errorMessage = "Prosím, vyplňte všetky polia správne.";
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->errors[] = "Neplatná emailová adresa.";
+        }
+
+        if (strlen($message) < 5) {
+            $this->errors[] = "Správa musí obsahovať aspoň 5 znakov.";
+        }
+
+        return empty($this->errors);
+    }
+
+    // Spracovanie POST dát
+    public function process(array $postData): void
+    {
+        $name = trim($this->sanitizeInput($postData['name'] ?? ''));
+        $email = trim($this->sanitizeInput($postData['email'] ?? ''));
+        $message = trim($this->sanitizeInput($postData['message'] ?? ''));
+
+        if ($this->validate($name, $email, $message)) {
+            $insertQuery = "INSERT INTO contacts (name, email, message) VALUES (:name, :email, :message)";
+            $params = [
+                ':name' => $name,
+                ':email' => $email,
+                ':message' => $message
+            ];
+
+            $insertedId = $this->db->insert($insertQuery, $params);
+
+            if ($insertedId !== false) {
+                $this->successMessage = "Správa bola úspešne odoslaná. Ďakujeme!";
+            } else {
+                $this->errorMessage = "Nastala chyba pri odosielaní správy. Skúste to prosím neskôr.";
+            }
+        } else {
+            $this->errorMessage = implode(' ', $this->errors);
+        }
     }
 }
 
+// --- Použitie ---
+
+$formHandler = new ContactFormHandler();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $formHandler->process($_POST);
+}
+
+function get_form_action() {
+    return "index.php"; // vráti na index.php
+}
 
 ?>
+
 
 <!-- Sekcia kontaktu -->
 <div class="contact-us section" id="contact">
@@ -102,12 +151,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button id="popup-close" style="padding: 10px 20px; cursor:pointer;">OK</button>
     </div>
 </div>
-<?php if (!empty($successMessage) || !empty($errorMessage)): ?>
+<?php
+$message = !empty($formHandler->successMessage) ? $formHandler->successMessage : (!empty($formHandler->errorMessage) ? $formHandler->errorMessage : '');
+$messageType = !empty($formHandler->successMessage) ? 'success' : 'error';
+?>
+
+<?php if ($message): ?>
     <script>
-        var messageType = "<?php echo !empty($successMessage) ? 'success' : 'error'; ?>";
-        var messageText = "<?php echo !empty($successMessage) ? addslashes($successMessage) : addslashes($errorMessage); ?>";
+        var messageType = "<?php echo $messageType; ?>";
+        var messageText = "<?php echo addslashes($message); ?>";
     </script>
 <?php endif; ?>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -132,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </script>
 
 
-<?php if (!empty($successMessage) || !empty($errorMessage)): ?>
+<?php if (!empty($formHandler->successMessage) || !empty($formHandler->errorMessage)): ?>
     <script>
         window.addEventListener('load', function() {
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
@@ -140,9 +195,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 <?php endif; ?>
 
-
-<?php
-function get_form_action() {
-    return "index.php"; // vráti na index.php
-}
-?>
