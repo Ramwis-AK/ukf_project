@@ -1,9 +1,8 @@
 <?php
 
-// Trieda Services reprezentuje sekciu "Služby" s ikonami, názvami a popismi
+// Prvé prečo my. (icon,text)
 class Services
 {
-    // Pole s jednotlivými službami – každá má ikonku, titulok a popis
     private array $serviceItems = [
         [
             'icon' => 'assets/images/service-01.png',

@@ -1,27 +1,26 @@
 <?php
-// Načítame pomocné funkcie z externého súboru
 require_once __DIR__ . '/../functions/helpers.php';
 
 class Courses
 {
-    // Premenné uchovávajúce kategórie kurzov a samotné kurzy
+    // Premenné uchovávajúce kategórie kurzov a eventy
     private array $courseCategories;
     private array $courseItems;
 
-    // Konstruktor triedy, ktorý očakáva dve polia - kategórie kurzov a kurzy samotné
+    // Konstruktor triedy, ktorý očakáva kategórie a eventy
     public function __construct(array $courseCategories, array $courseItems)
     {
         $this->courseCategories = $courseCategories;
         $this->courseItems = $courseItems;
     }
 
-    // Pomocná metóda na úpravu tried CSS pre filtrovanie kurzov - odstráni bodku z filtra
+    // Filter na bodky, aby sme z css vytvárali triedy v php
     private function getCourseClasses(string $filter): string
     {
         return ltrim($filter, '.');
     }
 
-    // Hlavná metóda pre vykreslenie sekcie kurzov v HTML
+    // Hlavná metóda pre vykreslenie sekcie eventov v HTML
     public function render(): void
     {
         ?>
@@ -36,10 +35,11 @@ class Courses
                     </div>
                 </div>
 
-                <!-- Filter kategórií kurzov -->
+                <!-- Filter kategórií eventov -->
                 <ul class="event_filter">
                     <?php foreach ($this->courseCategories as $category) : ?>
                         <li>
+                            <!-- navigácia pre eventy -->
                             <a class="<?php echo $category['active'] ? 'is_active' : ''; ?>" href="#!" data-filter="<?php echo htmlspecialchars($category['filter']); ?>">
                                 <?php echo htmlspecialchars($category['text']); ?>
                             </a>
@@ -47,7 +47,7 @@ class Courses
                     <?php endforeach; ?>
                 </ul>
 
-                <!-- Zoznam kurzov -->
+                <!-- Zobrazovanie eventov -->
                 <div class="row event_box">
                     <?php foreach ($this->courseItems as $course) : ?>
                         <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer <?php echo $this->getCourseClasses($course['filter']); ?>">
@@ -72,10 +72,7 @@ class Courses
 // Vytvoríme inštanciu pomocnej triedy na získanie dát
 $helpers = new Helpers();
 
-// Získame kategórie kurzov
 $courseCategories = $helpers->getCourseCategories();
-
-// Získame jednotlivé kurzy
 $courseItems = $helpers->getCourses();
 
 // Vytvoríme objekt triedy Courses s dátami a vykreslíme obsah

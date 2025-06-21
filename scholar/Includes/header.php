@@ -1,9 +1,9 @@
 <?php
 
-// Trieda Header zodpovedá za zobrazenie vrchnej časti webu (navigácia + logo + login info)
+// navigácia + login/register + logo
 class Header
 {
-    // Definícia položiek navigácie s aktívnou triedou pre aktuálnu sekciu
+    // Definícia položiek navigácie
     private array $navItems = [
         ['url' => '#top', 'text' => 'Domov', 'active' => true],
         ['url' => '#services', 'text' => 'O nás', 'active' => false],
@@ -19,7 +19,7 @@ class Header
         $this->startSession();
     }
 
-    // Ak session ešte nebeží, spustí ju (ochrana proti duplicitnému štartu)
+    // ochrana proti duplicitnému štartu
     private function startSession(): void
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -27,13 +27,13 @@ class Header
         }
     }
 
-    // Kontrola, či je používateľ prihlásený (existuje session premenná 'user_id')
+    // Kontrola, či je používateľ prihlásený
     private function isLoggedIn(): bool
     {
         return isset($_SESSION['user_id']);
     }
 
-    // Vráti meno používateľa zo session, alebo prázdny reťazec, ak nie je prihlásený
+    // Vráti meno zo session ak je prihlásení
     private function getUsername(): string
     {
         return $this->isLoggedIn() ? $_SESSION['username'] : '';
@@ -51,20 +51,21 @@ class Header
                         <nav class="main-nav">
                             <!-- Logo Start -->
                             <a href="index.php" class="logo">
-                                <h1>Gorm</h1> <!-- Názov alebo logo stránky -->
+                                <h1>Gorm</h1>
                             </a>
                             <!-- Logo End -->
 
                             <!-- Auth Area Start -->
                             <div class="auth-area">
+                                <!-- Ak je používateľ prihlásený, zobrazí jeho meno a odhlasovacie tlačidlo -->
                                 <?php if ($this->isLoggedIn()) : ?>
-                                    <!-- Ak je používateľ prihlásený, zobrazí jeho meno a odhlasovacie tlačidlo -->
                                     <div class="logged-in-user">
+                                        <!-- ochrana proti XSS(nebezpečné znaky)-->
                                         <span>Vitaj, <?php echo htmlspecialchars($this->getUsername(), ENT_QUOTES, 'UTF-8'); ?></span>
                                         <a href="/ukf_project/scholar/includes/logout.php" class="logout-btn">Odhlásiť sa</a>
                                     </div>
                                 <?php else : ?>
-                                    <!-- Ak nie je prihlásený, ponúkne možnosť prihlásiť/registrovať -->
+                                    <!-- Ak nie je prihlásený, zobrazí sa možnosť prihlásiť/registrovať -->
                                     <div class="login-register">
                                         <a href="Includes/login.php" class="login-btn">Prihlásiť sa  Registrovať</a>
                                     </div>

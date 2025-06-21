@@ -1,9 +1,9 @@
 <?php
 
-// Komponent pre sekciu "O nás" – obsahuje accordion s otázkami a opis firmy
+// otázkami a opis firmy
 class About
 {
-    // Položky akordeónu: otázka, odpoveď, či má byť otvorená ako prvá
+    // Položky akordeónu: otázka, odpoveď, či má byť otvorená
     private array $accordionItems = [
         [
             'id' => '1',
@@ -46,6 +46,7 @@ class About
                                 <div class="accordion-item">
                                     <!-- Nadpis akordeónu (otázka) -->
                                     <h2 class="accordion-header" id="heading<?php echo htmlspecialchars($item['id']); ?>">
+                                        <!-- či je otázka otvorená -->
                                         <button class="accordion-button <?php echo $item['show'] ? '' : 'collapsed'; ?>"
                                                 type="button"
                                                 data-bs-toggle="collapse"
@@ -62,7 +63,7 @@ class About
                                          aria-labelledby="heading<?php echo htmlspecialchars($item['id']); ?>"
                                          data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
-                                            <?php echo $item['content']; // tu môže byť aj HTML, preto bez htmlspecialchars ?>
+                                            <?php echo $item['content'];?>
                                         </div>
                                     </div>
                                 </div>

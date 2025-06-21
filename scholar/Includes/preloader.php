@@ -1,6 +1,5 @@
 <?php
 /**
- * Preloader component with animation and JS to hide after load
  * Zobrazuje sa pred načítaním stránky a zmizne po načítaní.
  */
 ?>
