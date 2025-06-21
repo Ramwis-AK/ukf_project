@@ -1,29 +1,28 @@
 <?php
 
 require_once __DIR__ . '/../config/db_config.php';
-// Načítanie konfigurácie databázy a triedy Database
 
 class User
 {
-    private Database $db;
     // Privátna premenná pre inštanciu databázy
+    private Database $db;
 
     public function __construct()
     {
-        $this->db = Database::getInstance();
         // V konštruktore získavame singleton inštanciu databázy
+        $this->db = Database::getInstance();
     }
 
     public function sanitizeInput(string $input): string
     {
-        // Očistenie vstupu pomocou metódy z triedy Database (napr. escapovanie špeciálnych znakov)
+        // Očistenie vstupu pomocou metódy z triedy Database
         return Database::sanitizeInput($input);
     }
 
     public function findByUsername(string $username): ?array
     {
         // Hľadá používateľa podľa užívateľského mena v databáze
-        // Používame pripravený SQL dotaz s parametrom pre bezpečnosť (prepared statement)
+        // Používame pripravený SQL dotaz s parametrom pre bezpečnosť
         $result = $this->db->select(
             "SELECT user_ID, username, password, role FROM users WHERE username = ?",
             [$username]
@@ -35,7 +34,6 @@ class User
     public function verifyPassword(string $password, string $hash): bool
     {
         // Overí heslo zadané používateľom voči zahashovanému heslu v databáze
-        // Používa metódu z triedy Database (pravdepodobne password_verify)
         return Database::verifyPassword($password, $hash);
     }
 

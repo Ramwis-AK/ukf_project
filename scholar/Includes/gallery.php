@@ -1,11 +1,11 @@
 <?php
-require_once __DIR__ . '/../functions/helpers.php'; // Načítame externý súbor s pomocnými funkciami
+require_once __DIR__ . '/../functions/helpers.php';
 
 class GallerySection
 {
-    private array $events; // Pole na uloženie eventov (udalostí)
+    private array $events; // Pole na uloženie eventov čo sa stali
 
-    // Konštruktor, ktorý môže prijať pole eventov, alebo ich automaticky načíta z DB, ak sa nič neodošle
+    // Konštruktor, ktorý môže prijať pole eventov alebo ich automaticky načíta z DB, ak sa nič neodošle
     public function __construct(array $events = [])
     {
         // Ak je pole eventov prázdne, načítame ich cez Helpers z databázy
@@ -26,20 +26,20 @@ class GallerySection
             return;
         }
         ?>
-        <div class="section events" id="events"> <!-- Sekcia galérie eventov -->
-            <div class="container"> <!-- Bootstrap kontajner -->
-                <div class="row"> <!-- Bootstrap riadok -->
+        <div class="section events" id="events">
+            <div class="container">
+                <div class="row">
                     <div class="col-lg-12 text-center">
-                        <div class="section-heading"> <!-- Nadpis sekcie -->
+                        <div class="section-heading">
                             <h6>Galéria</h6>
                             <h2>Naše eventy</h2>
                         </div>
                     </div>
 
                     <?php foreach ($this->events as $event): ?> <!-- Pre každý event v poli -->
-                        <div class="col-lg-12 col-md-6"> <!-- Bootstrap stĺpec -->
-                            <div class="item"> <!-- Jeden event -->
-                                <div class="row"> <!-- Riadok na rozloženie obrázka a textu -->
+                        <div class="col-lg-12 col-md-6">
+                            <div class="item">
+                                <div class="row">
                                     <div class="col-lg-3">
                                         <div class="image">
                                             <!-- Obrázok eventu, alt text je názov eventu, zabezpečené htmlspecialchars -->
@@ -60,8 +60,7 @@ class GallerySection
                                             </li>
                                             <li>
                                                 <span>Počet účastníkov:</span>
-                                                <!-- Počet účastníkov - zohľadnené možné preklepy v kľúči ('customers' alebo 'custumers') -->
-                                                <h6><?php echo htmlspecialchars($event['customers'] ?? $event['custumers'] ?? ''); ?></h6>
+                                                <h6><?php echo htmlspecialchars($event['customers']); ?></h6>
                                             </li>
                                             <li>
                                                 <span>Hodnotenie:</span>
@@ -91,6 +90,5 @@ class GallerySection
     }
 }
 
-// Použitie (napríklad v tvojom view alebo kontroléri):
 $gallery = new GallerySection(); // Vytvorí inštanciu galérie, automaticky načíta eventy z DB
 $gallery->render(); // Vykreslí sekciu galérie eventov

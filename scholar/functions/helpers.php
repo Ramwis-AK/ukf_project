@@ -1,14 +1,13 @@
 <?php
 require_once __DIR__ . '/../config/db_config.php';
-// Načítanie súboru s konfiguráciou databázy a triedou Database
 
 class Helpers {
-    private Database $db;
     // Privátna premenná, ktorá bude obsahovať inštanciu databázy
+    private Database $db;
 
+    // V konštruktore získavame inštanciu databázy (singleton)
     public function __construct() {
         $this->db = Database::getInstance();
-        // V konštruktore získavame inštanciu databázy (singleton)
     }
 
     // --- OBSAH WEBU ---
@@ -60,7 +59,7 @@ class Helpers {
     }
 
     public function getCourses(): array {
-        // Vráti kurzy spoločne s ich kategóriou (pripojenie cez LEFT JOIN)
+        // Vráti eventy spoločne s ich kategóriou
         return $this->db->select("
             SELECT c.*, cc.filter 
             FROM courses c 

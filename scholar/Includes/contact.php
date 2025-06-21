@@ -1,17 +1,15 @@
 <?php
 /**
  * Contact section template
- *
- * @package Scholar
  */
 ?>
 
 <!-- Sekcia kontaktu -->
 <div class="contact-us section" id="contact">
-    <div class="container"> <!-- Bootstrap kontajner pre centrovanie a padding -->
-        <div class="row"> <!-- Bootstrap riadok pre rozloženie -->
+    <div class="container">
+        <div class="row">
             <div class="col-lg-6 align-self-center"> <!-- Ľavý stĺpec, vertikálne vycentrovaný -->
-                <div class="section-heading"> <!-- Nadpis a info -->
+                <div class="section-heading">
                     <h6>kontaktujte nás</h6>
                     <h2>Neváhajte nás kedykoľvek kontaktovať</h2>
                     <p>
@@ -70,12 +68,7 @@
 </div>
 
 <?php
-/**
- * Get form action URL
- * Táto funkcia určuje, kam sa formulár odošle.
- * Môžeš to v budúcnosti konfigurovať, napr. cez nastavenia alebo environmentálne premenné.
- */
 function get_form_action() {
-    return "index.php"; // Aktuálne sa odosiela na index.php
+    return "index.php"; // vráti na index.php
 }
 ?>
