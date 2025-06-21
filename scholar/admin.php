@@ -8,8 +8,8 @@ define('DB_ACCESS_ALLOWED', true);
 session_start();
 
 // Načítanie konfiguračných a pomocných súborov
-require_once 'config/db_config.php';         // Konfigurácia databázy
-require_once 'functions/helpers.php';        // Pomocné funkcie ako login, rola, atď.
+require_once 'config/db_config.php';
+require_once 'functions/helpers.php';
 
 // Overenie, či je používateľ prihlásený a či má administrátorské oprávnenia
 // Ak nie, presmeruje ho na prihlasovaciu stránku
@@ -18,7 +18,7 @@ if (!Helpers::isLoggedIn() || !Helpers::isAdmin()) {
     exit; // Ukončí skript, aby sa nedostalo k zvyšku kódu
 }
 
-// Získa údaje aktuálne prihláseného používateľa (napr. meno, ID)
+// Získa údaje aktuálne prihláseného používateľa
 $currentUser = Helpers::getCurrentUser();
 
 // Nastaví názov stránky pre zobrazovanie v <title>
@@ -31,11 +31,7 @@ $pageTitle = "Admin Panel - Scholar";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle; ?></title>
-
-    <!-- Bootstrap CSS pre responzívny dizajn a základné štýly -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- FontAwesome ikony -->
     <link rel="stylesheet" href="assets/css/fontawesome.css">
 
 
@@ -207,14 +203,12 @@ $pageTitle = "Admin Panel - Scholar";
             Scholar Admin
         </a>
 
-        <!-- Tlačidlo na odhlásenie (funkčné cez JS alebo priamy link) -->
         <button id="logoutBtn" class="btn btn-outline-light">Odhlásiť sa</button>
 
         <!-- Sekcia napravo s menom prihláseného používateľa a dropdown menu -->
         <div class="navbar-nav ms-auto">
             <div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    <i class="fas fa-user me-1"></i>
+                <a><i class="fas fa-user me-1"></i>
                     <?php echo htmlspecialchars($currentUser['username']); ?> <!-- Bezpečné zobrazenie mena -->
                 </a>
                 <ul class="dropdown-menu">
@@ -394,7 +388,7 @@ $pageTitle = "Admin Panel - Scholar";
 
 
 <script>
-    // Po načítaní DOMu sa inicializuje navigácia a základné dáta
+    // Po načítaní DOMu(pre dynamické úpravy js) sa inicializuje navigácia a základné dáta
     document.addEventListener('DOMContentLoaded', function() {
         // Výber všetkých navigačných prvkov a sekcií obsahu
         const navLinks = document.querySelectorAll('.nav-link, .quick-action-btn');
@@ -403,8 +397,9 @@ $pageTitle = "Admin Panel - Scholar";
         // Každému odkazu sa priradí klik handler
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
-                e.preventDefault(); // Zamedzí predvolenému správaniu odkazu
+                e.preventDefault(); // Zamedzí predvolenému správaniu odkazu - zmena obsah stránky bez reloadu
 
+                //zabránenie nežiadaných akcii
                 const targetSection = this.getAttribute('data-section');
                 if (!targetSection) return;
 
@@ -433,7 +428,7 @@ $pageTitle = "Admin Panel - Scholar";
         loadDashboardStats();
     });
 
-    // Načíta štatistiky pre dashboard (napr. počet používateľov, kurzov, atď.)
+    // Načíta štatistiky pre dashboard
     function loadDashboardStats() {
         fetch('admin_api.php?action=get_stats')
             .then(response => response.json())
@@ -463,7 +458,7 @@ $pageTitle = "Admin Panel - Scholar";
             case 'courses':
                 loadCourses();
                 break;
-            // Môžeš pridať ďalšie sekcie sem
+            // možnosť pridať ďaľšie sekcie sem
         }
     }
 
@@ -473,7 +468,7 @@ $pageTitle = "Admin Panel - Scholar";
             .then(response => response.json())
             .then(data => {
                 const tbody = document.getElementById('users-table-body');
-                tbody.innerHTML = ''; // Vymaže predošlé riadky
+                tbody.innerHTML = ''; // Vymaže predošlé riadky, aby zabránil duplicite
 
                 data.forEach(user => {
                     // Pre každého používateľa sa vytvorí nový riadok
@@ -508,7 +503,7 @@ $pageTitle = "Admin Panel - Scholar";
         console.log('Loading courses...');
     }
 
-    // Funkcia na úpravu údajov o používateľovi (používa prompt)
+    // Funkcia na úpravu údajov o používateľovi
     function editUser(userId) {
         const row = event.target.closest('tr');
         const cells = row.cells;

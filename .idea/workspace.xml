@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f4e9e83e-8cb1-4201-9c01-c28797fd7eba" name="Changes" comment="funguj">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/contact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/gallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/gallery.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/Includes/testimonials.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/Includes/testimonials.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/config/db_config.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/config/db_config.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scholar/functions/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/functions/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scholar/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/scholar/admin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +130,7 @@
       <workItem from="1750172115566" duration="17710000" />
       <workItem from="1750224431197" duration="12013000" />
       <workItem from="1750246435618" duration="1925000" />
-      <workItem from="1750489708757" duration="15037000" />
+      <workItem from="1750489708757" duration="16135000" />
     </task>
     <task id="LOCAL-00001" summary="testy">
       <option name="closed" value="true" />
