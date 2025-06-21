@@ -24,11 +24,12 @@ class ContactFormHandler
     private function validate(string $name, string $email, string $message): bool
     {
         $this->errors = [];
-
+        //dĺžka 2+ a latinka + diakritika
+        //v prípade núdze if (mb_strlen($name) < 2 || !preg_match('/^[\p{L}\s\'\-]+$/u', $name))
         if (strlen($name) < 2 || !preg_match('/^[a-zA-Zá-žÁ-Ž\s]+$/u', $name)) {
             $this->errors[] = "Meno musí obsahovať aspoň 2 písmená a iba písmená a medzery.";
         }
-
+        //syntaktické overenie mailu (neskôr vyžaduje úpravu - overenie domény a pod.)
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->errors[] = "Neplatná emailová adresa.";
         }
@@ -152,33 +153,50 @@ function get_form_action() {
     </div>
 </div>
 <?php
+// Ak správa nie je úspešná, skontrolujeme, či mám chybovú správu a použijeme ju.
 $message = !empty($formHandler->successMessage) ? $formHandler->successMessage : (!empty($formHandler->errorMessage) ? $formHandler->errorMessage : '');
+
+// Nastavíme typ správy podľa toho, či existuje úspešná správa.
+// Ak je úspešná správa, `$messageType` bude "success", inak "error".
 $messageType = !empty($formHandler->successMessage) ? 'success' : 'error';
 ?>
 
 <?php if ($message): ?>
     <script>
-        var messageType = "<?php echo $messageType; ?>";
-        var messageText = "<?php echo addslashes($message); ?>";
+        // Ak máme nejakú správu, prenesieme ju do JavaScriptu pomocou json_encode a zabezpečí, že reťazce
+        var messageType = <?php echo json_encode($messageType); ?>;
+        var messageText = <?php echo json_encode($message); ?>;
     </script>
 <?php endif; ?>
 
 
 <script>
+    // Po načítaní celej stránky spustíme tento kód.
     document.addEventListener('DOMContentLoaded', function() {
+        // Overíme, či je premenná messageText definovaná a nie je prázdna.
         if (typeof messageText !== 'undefined' && messageText) {
+            // Získame element modálneho okna, kde sa zobrazí správa.
             const modal = document.getElementById('popup-modal');
+            // Element, kam vložíme text správy.
             const messageEl = document.getElementById('popup-message');
+            // Tlačidlo na zatvorenie modálneho okna.
             const closeBtn = document.getElementById('popup-close');
 
+            // Vložíme text správy do elementu.
             messageEl.textContent = messageText;
+
+            // Podľa typu správy nastavíme farbu textu:
+            // zelená pre úspech, červená pre chybu.
             if(messageType === 'success') {
                 messageEl.style.color = 'green';
             } else {
                 messageEl.style.color = 'red';
             }
+
+            // Zobrazíme modálne okno (nastavíme jeho zobrazenie na flex).
             modal.style.display = 'flex';
 
+            // Pridáme poslucháča na tlačidlo zatvorenia, ktorý skryje modálne okno.
             closeBtn.addEventListener('click', function() {
                 modal.style.display = 'none';
             });
@@ -189,9 +207,12 @@ $messageType = !empty($formHandler->successMessage) ? 'success' : 'error';
 
 <?php if (!empty($formHandler->successMessage) || !empty($formHandler->errorMessage)): ?>
     <script>
+        // Ak máme buď úspešnú, alebo chybovú správu, po načítaní stránky
+        // plynulo posunieme stránku úplne dole.
         window.addEventListener('load', function() {
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         });
     </script>
 <?php endif; ?>
+
 
